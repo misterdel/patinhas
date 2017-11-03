@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+
+</h:head>
+<h:body>
+	<h:form>
+	
+	   <h:outputLabel>Nome:</h:outputLabel>
+	   <h:inputText value="#{clienteController.cliente.nome}"  />
+	   
+	   <h:commandButton action="#{clienteController.salvar()}"  value="Salvar" />
+	</h:form>
+</h:body>
+</html>
