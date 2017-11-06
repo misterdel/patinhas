@@ -8,6 +8,8 @@ public class Cliente implements Serializable {
 
 	private String nome;
 
+	private String teste;
+
 	public String getNome() {
 		return nome;
 	}
