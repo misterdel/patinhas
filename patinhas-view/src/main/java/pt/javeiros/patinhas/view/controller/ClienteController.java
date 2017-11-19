@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import pt.javeiros.patinhas.modelo.Cliente;
+import pt.javeiros.patinhas.modelo.Utilizador;
 
 @ManagedBean
 @ViewScoped
@@ -13,7 +13,7 @@ public class ClienteController implements Serializable {
 
 	private static final long serialVersionUID = 4209347987845624148L;
 
-	private Cliente cliente;
+	private Utilizador cliente;
 
 	public void salvar() {
 		
@@ -22,17 +22,17 @@ public class ClienteController implements Serializable {
 	}
 	
 	
-	public Cliente getCliente() {
+	public Utilizador getCliente() {
 		
 		if(cliente == null) {
 			
-			cliente = new Cliente();
+			cliente = new Utilizador();
 		}
 		
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Utilizador cliente) {
 		this.cliente = cliente;
 	}
 
