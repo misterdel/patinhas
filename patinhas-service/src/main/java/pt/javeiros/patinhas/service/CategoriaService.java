@@ -10,7 +10,12 @@ import java.util.List;
 
 public class CategoriaService implements Serializable{
 
-    public void salvar(Categoria categoria) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void salvar(Categoria categoria) {
 
         CategoriaDAO dao = new CategoriaDAO();
 

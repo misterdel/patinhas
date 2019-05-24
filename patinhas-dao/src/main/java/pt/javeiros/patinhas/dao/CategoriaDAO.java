@@ -13,165 +13,198 @@ import java.util.List;
 
 public class CategoriaDAO implements Serializable {
 
-    public void salvar(Categoria categoria) {
+	private static final long serialVersionUID = 1L;
 
-        StringBuilder sql = new StringBuilder();
+	public void salvar(Categoria categoria) {
 
-        sql.append("insert into");
+		StringBuilder sql = new StringBuilder();
 
-        sql.append(" tb_categoria(codigo,descricao,observacao)");
+		sql.append("insert into");
 
-        sql.append(" values (?,?,?)");
+		sql.append(" tb_categoria(codigo,descricao,observacao)");
 
-        try {
-            Connection connection = FabricaConexao.conexao;
+		sql.append(" values (?,?,?)");
 
-            PreparedStatement ps = connection.prepareStatement(sql.toString());
+		try {
+			Connection connection = FabricaConexao.conexao;
 
-            ps.setString(1, categoria.getCodigo());
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
 
-            ps.setString(2, categoria.getDescricao());
+			ps.setString(1, categoria.getCodigo());
 
-            ps.setString(3, categoria.getObservacao());
+			ps.setString(2, categoria.getDescricao());
 
-            ps.execute();
+			ps.setString(3, categoria.getObservacao());
 
-            ps.close();
+			ps.execute();
 
-        } catch (Exception e) {
+			ps.close();
 
-            e.printStackTrace();
+		} catch (Exception e) {
 
-            System.out.println("Problema ao salvar");
+			e.printStackTrace();
 
-        }
+			System.out.println("Problema ao salvar");
 
-    }
-    public void alterar(Categoria categoria) {
+		}
 
-        StringBuilder sql = new StringBuilder();
+	}
 
-        sql.append("update");
+	public void alterar(Categoria categoria) {
 
-        sql.append(" tb_categoria  set codigo = ? , descricao = ? , observacao = ? where");
+		StringBuilder sql = new StringBuilder();
 
-        sql.append(" id = ?");
+		sql.append("update");
 
-        try {
-            Connection connection = FabricaConexao.conexao;
+		sql.append(" tb_categoria  set codigo = ? , descricao = ? , observacao = ? where");
 
-            PreparedStatement ps = connection.prepareStatement(sql.toString());
+		sql.append(" id = ?");
 
-            ps.setString(1, categoria.getCodigo());
+		try {
+			Connection connection = FabricaConexao.conexao;
 
-            ps.setString(2, categoria.getDescricao());
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
 
-            ps.setString(3, categoria.getObservacao());
+			ps.setString(1, categoria.getCodigo());
 
-            ps.setLong(4, categoria.getId());
+			ps.setString(2, categoria.getDescricao());
 
-            ps.execute();
+			ps.setString(3, categoria.getObservacao());
 
-            ps.close();
+			ps.setLong(4, categoria.getId());
 
-        } catch (Exception e) {
+			ps.execute();
 
-            e.printStackTrace();
+			ps.close();
 
-            System.out.println("Problema ao salvar");
+		} catch (Exception e) {
 
-        }
-    }
+			e.printStackTrace();
 
-    public List<Categoria> consultar(Categoria categoria) {
+			System.out.println("Problema ao salvar");
 
-                List<Categoria> Categorias = new ArrayList<Categoria>();
+		}
+	}
 
-        StringBuilder sql = new StringBuilder();
+	public List<Categoria> consultar(Categoria categoria) {
 
-        sql.append("select id, codigo, descricao, observacao from tb_categoria where ");
+		List<Categoria> Categorias = new ArrayList<Categoria>();
 
+		StringBuilder sql = new StringBuilder();
 
-        if (UtilString.isNotEmptyNull(categoria.getCodigo())) {
+		sql.append("select id, codigo, descricao, observacao from tb_categoria where ");
 
-            sql.append("codigo ilike ?");
+		if (UtilString.isNotEmptyNull(categoria.getCodigo())) {
 
-        }
+			sql.append("codigo ilike ?");
 
-        if (UtilString.isNotEmptyNull(categoria.getDescricao())) {
+		}
 
-            if (UtilString.isNotEmptyNull(categoria.getCodigo())) {
-                sql.append(" and ");
-            }
+		if (UtilString.isNotEmptyNull(categoria.getDescricao())) {
 
-            sql.append(" descricao ilike ?");
+			if (UtilString.isNotEmptyNull(categoria.getCodigo())) {
+				sql.append(" and ");
+			}
 
-        }
+			sql.append(" descricao ilike ?");
 
-        try {
-            Connection connection = FabricaConexao.conexao;
+		}
 
-            PreparedStatement ps = connection.prepareStatement(sql.toString());
+		try {
+			Connection connection = FabricaConexao.conexao;
 
-            int i = 1;
-            if (UtilString.isNotEmptyNull(categoria.getCodigo())) {
-                ps.setString(i++, "%" + categoria.getCodigo() + "%");
-            }
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
 
-            if (UtilString.isNotEmptyNull(categoria.getDescricao())) {
-                ps.setString(i++, "%" + categoria.getDescricao() + "%");
-            }
+			int i = 1;
+			if (UtilString.isNotEmptyNull(categoria.getCodigo())) {
+				ps.setString(i++, "%" + categoria.getCodigo() + "%");
+			}
 
+			if (UtilString.isNotEmptyNull(categoria.getDescricao())) {
+				ps.setString(i++, "%" + categoria.getDescricao() + "%");
+			}
 
-            ResultSet resultSet = ps.executeQuery();
+			ResultSet resultSet = ps.executeQuery();
 
-            while (resultSet.next()) {
+			while (resultSet.next()) {
 
-                Categoria categoraBD = new Categoria();
-                categoraBD.setId(resultSet.getLong(1));
-                categoraBD.setCodigo(resultSet.getString(2));
-                categoraBD.setDescricao(resultSet.getString(3));
-                categoraBD.setObservacao(resultSet.getString(3));
+				Categoria categoraBD = new Categoria();
+				categoraBD.setId(resultSet.getLong(1));
+				categoraBD.setCodigo(resultSet.getString(2));
+				categoraBD.setDescricao(resultSet.getString(3));
+				categoraBD.setObservacao(resultSet.getString(3));
 
-                Categorias.add(categoraBD);
-            }
+				Categorias.add(categoraBD);
+			}
 
-            ps.close();
+			ps.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        return Categorias;
-    }
+		return Categorias;
+	}
 
+	public void remover(Long id) {
 
-    public void remover(Long id) {
+		StringBuilder sql = new StringBuilder();
 
-        StringBuilder sql = new StringBuilder();
+		sql.append("delete from");
 
-        sql.append("delete from");
+		sql.append(" tb_categoria where id = ?");
 
-        sql.append(" tb_categoria where id = ?");
+		try {
+			Connection connection = FabricaConexao.conexao;
 
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
 
-        try {
-            Connection connection = FabricaConexao.conexao;
+			ps.setLong(1, id);
 
-            PreparedStatement ps = connection.prepareStatement(sql.toString());
+			ps.execute();
 
-            ps.setLong(1,id);
+			ps.close();
 
-            ps.execute();
+		} catch (Exception e) {
 
-            ps.close();
+			e.printStackTrace();
 
-        } catch (Exception e) {
+			System.out.println("Problema ao salvar");
 
-            e.printStackTrace();
+		}
+	}
 
-            System.out.println("Problema ao salvar");
+	public List<Categoria> listarCategorias() {
 
-        }
-    }
+		List<Categoria> Categorias = new ArrayList<Categoria>();
+
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select id, codigo, descricao, observacao from tb_categoria");
+
+		try {
+			Connection connection = FabricaConexao.conexao;
+
+			PreparedStatement ps = connection.prepareStatement(sql.toString());
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+
+				Categoria categoraBD = new Categoria();
+				categoraBD.setId(resultSet.getLong(1));
+				categoraBD.setCodigo(resultSet.getString(2));
+				categoraBD.setDescricao(resultSet.getString(3));
+				categoraBD.setObservacao(resultSet.getString(3));
+
+				Categorias.add(categoraBD);
+			}
+
+			ps.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return Categorias;
+	}
 }

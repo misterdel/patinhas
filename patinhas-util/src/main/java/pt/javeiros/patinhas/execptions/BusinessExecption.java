@@ -2,7 +2,8 @@ package pt.javeiros.patinhas.execptions;
 
 public class BusinessExecption extends Exception {
 
-    private String mensagem;
+	private static final long serialVersionUID = 1L;
+	private String mensagem;
 
     public BusinessExecption(String mensagem){
         super(mensagem);

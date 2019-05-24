@@ -1,37 +1,50 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/paginas/templates/template.xhtml">
+		<ui:define name="conteudo">
 
-<h:head>
 
-	<h:outputStylesheet  library="css" name="style.css" />
+		<div class="col-lg-12">
+			<div class="portlet portlet-default">
 
-</h:head>
+				<div class="portlet-heading">
+					<div class="portlet-title">
+						<h4>Cadastro de utilizador</h4>
+					</div>
+					<div class="portlet-widgets">
+						<a data-toggle="collapse" data-parent="#accordion" 	href="#"><i class="fa fa-chevron-down"></i></a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
 
-<h:body>
+				<div id="horizontalFormExample" class="panel-collapse collapse in">
+					<div class="portlet-body">
+					
+						<h:form id="formUtilizador" enctype="multipart/form-data" style="text-align:center">
+		
+							<h:panelGroup rendered="#{!utilizadorController.consulta}">
+		
+								<ui:include src="/paginas/utilizador/registarUtilizador.xhtml" />
+		
+							</h:panelGroup>
+		
+							<h:panelGroup rendered="#{utilizadorController.consulta}">
+		
+								<ui:include src="/paginas/utilizador/consultar.xhtml" />
+		
+							</h:panelGroup>
+							
+						</h:form>
+					
+					</div>
+				</div>
 
-<h:form id="formPrincipal">
+			</div>
 
-	<p:panel id="idPanelUtilizador"  header="Utilizador" toggleable="true" toggleOrientation="horizontal" >
+		</div>
+
+		</ui:define>
 	
-	    <p:messages id="mensagem" />
-	
-		<h:panelGrid columns="2" cellpadding="10">
-		   
-		    <p:outputLabel for="txtNome" value="Nome:" />
-		    <p:inputText id="txtNome" value="#{utilizadorController.utilizador.nome}" required="true" requiredMessage="O Campo nome é obrigatório" />
-		  
-		    <p:outputLabel for="txtDataNascimento" value="Data nascimento:" />
-       		<p:calendar id="txtDataNascimento" value="#{utilizadorController.utilizador.dataNascimento}" locale="pt" navigator="true" pattern="dd/MM/yyyy" 
-       		required="true" requiredMessage="O Campo data de nascimento é obrigatório"  />
-		 
-		</h:panelGrid>
-		
-		
-		<p:commandButton action="#{utilizadorController.salvar()}" value="Salvar" update="@form" />
-		
-	</p:panel>
- </h:form>
-</h:body>
-</html>
+</ui:composition>

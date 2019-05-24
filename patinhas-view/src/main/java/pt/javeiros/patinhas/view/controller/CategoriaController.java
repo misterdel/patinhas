@@ -7,10 +7,8 @@ import pt.javeiros.patinhas.util.*;
 import pt.javeiros.patinhas.view.util.UtilMensagem;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
 
@@ -48,7 +46,7 @@ public class CategoriaController implements Serializable {
 
 		categoria = new Categoria();
 
-		UtilMensagem.adicionarMensagemSucesso("OperaÃ§Ã£o realizada com sucesso!");
+		UtilMensagem.adicionarMensagemSucesso("Operaçãoo realizada com sucesso!");
 
 	}
 	public void alterar(){
@@ -88,7 +86,7 @@ public class CategoriaController implements Serializable {
 
         categoria = new Categoria();
 
-        UtilMensagem.adicionarMensagemSucesso("OperaÃ§Ã£o realizada com sucesso!");
+        UtilMensagem.adicionarMensagemSucesso("Operação realizada com sucesso!");
 
     }
 
