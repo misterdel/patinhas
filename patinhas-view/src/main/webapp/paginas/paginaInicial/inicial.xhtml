@@ -1,0 +1,148 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="template.xhtml">
+
+
+	<ui:define name="breadcrumb">
+		<li class="active"></li>
+	</ui:define>
+
+	<ui:define name="titulo">
+		<h1>#{message['label.dashboard']}</h1>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form prependId="false">
+			<div class="row">
+				<div class="col-md-12">
+					<p:panel header="Filtro" id="panelBusca" style="height: 100%;"
+						rendered="#{configuracaoGraficosController.menuDashboard}"
+						toggleable="true">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group input-group-sm">
+									<h:outputLabel value="#{message['label.periodo.inicial']}:"
+										style="width:100%;" />
+									<p:calendar pattern="dd/MM/yyyy" mask="true" locale="pt"
+										style="width:100%;"
+										value="#{configuracaoGraficosController.formulario.dataInicial}" />
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="form-group input-group-sm">
+									<h:outputLabel style="width:100%;"
+										value="#{message['label.periodo.final']}:" />
+									<p:calendar pattern="dd/MM/yyyy" mask="true" locale="pt"
+										style="width:100%;"
+										value="#{configuracaoGraficosController.formulario.dataFinal}" />
+								</div>
+							</div>
+							<div class="col-md-3">
+								<p:commandButton value="Buscar" style="margin-top: 25px"
+									class="btn btn-default" ajax="false"
+									actionListener="#{configuracaoGraficosController.realizarBuscaGraficos}"></p:commandButton>
+							</div>
+						</div>
+					</p:panel>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p:panel header="" id="panelDashboard"
+						style="overflow-y: auto;height: 100%;"
+						rendered="#{configuracaoGraficosController.menuDashboard}">
+						<f:facet name="actions">
+							<p:commandLink id="btnFull"
+								onclick="$('#panelDashboard').toggleClass('fullscreen')"
+								styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+								<h:outputText styleClass="ui-icon ui-icon-arrow-4-diag" />
+							</p:commandLink>
+							<p:commandLink id="btnRefresh" onclick="location.reload();"
+								styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+								<h:outputText styleClass="ui-icon ui-icon-refresh" />
+							</p:commandLink>
+						</f:facet>
+						<div class="gridster">
+							<ul style="width: 100%" class="panelDashboard">
+								<p:poll
+									interval="#{configuracaoGraficosController.formulario.tempoAtualizacao}"
+									listener="#{configuracaoGraficosController.inicializarGraficos}" />
+								<c:forEach var="graficoItem"
+									items="#{configuracaoGraficosController.formulario.entidade.configuracaoGraficosItemList}"
+									varStatus="contador">
+									<li id="#{graficoItem.id}" data-row="#{graficoItem.linha}"
+										data-col="#{graficoItem.coluna}"
+										data-sizex="#{graficoItem.tamanhoLinha}"
+										data-sizey="#{graficoItem.tamanhoColuna}"><p:panel
+											header="#{graficoItem.tipoGrafico.descricao}"
+											style="height: 100%;">
+											<p:poll
+												interval="#{configuracaoGraficosController.formulario.tempoAtualizacao}"
+												oncomplete="renderizarTodosGraficos()"
+												update="graficoId-#{graficoItem.id}" />
+											<p:chart id="graficoId-#{graficoItem.id}"
+												widgetVar="grafico#{contador.index}"
+												style="width: 100%; height: 100%" responsive="true"
+												type="#{graficoItem.tipoGrafico.tipo}"
+												model="#{configuracaoGraficosController.formulario.mapaGraficos[graficoItem.tipoGrafico]}" />
+										</p:panel></li>
+								</c:forEach>
+							</ul>
+						</div>
+					</p:panel>
+				</div>
+			</div>
+		</h:form>
+
+		<script type="text/javascript">
+
+				function renderizarGrafico(widget){
+					$('#'+PF(widget).id).height($('#'+PF(widget).id.split("-")[1]).height()*0.90)
+					$('#'+PF(widget).id).width($('#'+PF(widget).id.split("-")[1]).width()*0.98)
+					PF(widget).plot.replot( { resetAxes: true } );
+					PF(widget).render();
+					PF(widget).plot.redraw();
+					gridster.disable();
+				}
+
+				function renderizarTodosGraficos(){
+					for(var widget in PrimeFaces.widgets) {
+						if(widget.indexOf('grafico') > -1){
+						    renderizarGrafico(widget);
+						}
+					}
+					if (gridster!= null){
+						gridster.disable();
+					}
+				}
+				
+				var gridster = null;
+			    $(document).ready(function () {
+			    	atualizar();
+			    	renderizarTodosGraficos();
+			    	if (gridster!= null){
+			    		gridster.disable();
+			    	}
+			    }); 
+
+			    function atualizar(){
+			    	gridster = $(".gridster ul").gridster({
+			            widget_base_dimensions: ['auto', 220],
+			            autogenerate_stylesheet: true,
+			            min_cols: 1,
+			            max_cols: 6,
+			            widget_margins: [5, 5]
+			        }).data('gridster');
+
+			        if (gridster != null){
+			        	gridster.disable();
+				     }
+			        $('.gridster  ul').css({'padding': '0'});
+			    }
+			</script>
+	</ui:define>
+</ui:composition>

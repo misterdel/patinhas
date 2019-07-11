@@ -1,0 +1,103 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:toolbar>
+	<f:facet name="right">
+		<p:commandLink icon="ui-icon-new"
+			action="#{utilBean.NovoUtilizaodr()}" value="Novo"
+			class="btn btn-default" update="@form" />
+	</f:facet>
+</p:toolbar>
+<p:separator />
+
+<style type="text/css">
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
+</style>
+      
+    <p:dataTable id="tableStateDT" var="util" value="#{utilBean.utilizadores}" widgetVar="utilTable" multiViewState="true"
+                 rows="10" paginator="true"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15"
+                 selectionMode="single" selection="#{utilBean.utilSelect}" rowKey="#{util.id}"
+                 emptyMessage="No users found with given criteria" filteredValue="#{utilBean.filteredUtilizadores}">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search all fields:" />
+                <p:inputText id="globalFilter" onkeyup="PF('utilTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>
+         
+        <p:ajax event="rowSelect" update=":formUtilizador:utilDetail" oncomplete="PF('utilDialog').show()" />
+ 
+        <p:column headerText="Nif" filterBy="#{util.nif}" sortBy="#{util.nif}" filterMatchMode="contains">
+            <h:outputText value="#{util.nif}" />
+        </p:column>
+ 
+        <p:column headerText="Nome" filterBy="#{util.nome}" sortBy="#{util.nome}" filterMatchMode="startsWith">
+            <h:outputText value="#{util.nome}" />
+        </p:column>
+        
+         <p:column headerText="Apelido" filterBy="#{util.apelido}" sortBy="#{util.apelido}" filterMatchMode="startsWith">
+            <h:outputText value="#{util.apelido}" />
+        </p:column>
+        
+         <p:column headerText="Localidade" filterBy="#{util.localidade}" sortBy="#{util.localidade}" filterMatchMode="startsWith">
+            <h:outputText value="#{util.localidade}" />
+        </p:column>
+        
+         <p:column headerText="Email" filterBy="#{util.email}" sortBy="#{util.email}" filterMatchMode="startsWith">
+            <h:outputText value="#{util.email}" />
+        </p:column>
+ 
+      <!--   <p:column headerText="Brand" filterBy="#{car.brand}" sortBy="#{car.brand}" filterMatchMode="exact">
+            <f:facet name="filter">
+                <p:selectOneMenu onchange="PF('utilTable').filter()" style="width:100%; box-sizing: border-box;" >
+                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                    <f:selectItems value="#{dtTableStateView.brands}" />
+                </p:selectOneMenu>
+            </f:facet>
+            <h:outputText value="#{car.brand}" />
+        </p:column> 
+ 
+        <p:column headerText="Color" filterBy="#{car.color}" sortBy="#{car.color}" filterMatchMode="in">
+            <f:facet name="filter">
+                <p:selectCheckboxMenu label="Colors" onchange="PF('utilTable').filter()" style="width:100%; box-sizing: border-box;" scrollHeight="150">
+                    <f:selectItems value="#{dtTableStateView.colors}" />
+                </p:selectCheckboxMenu>
+            </f:facet>
+            <h:outputText value="#{car.color}" />
+        </p:column>-->
+    </p:dataTable>
+     
+    <p:dialog header="Informação do utilizador" widgetVar="utilDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="utilDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty utilBean.utilSelect}" columnClasses="label,value">
+               
+                <h:outputText value="Id:" />
+                <h:outputText value="#{utilBean.utilSelect.id}" />
+ 
+                <h:outputText value="Nome" />
+                <h:outputText value="#{utilBean.utilSelect.nome}" />
+                
+                <h:outputText value="Apelido" />
+                <h:outputText value="#{utilBean.utilSelect.apelido}" />    
+                             
+                <h:outputText value="Nif" />
+                <h:outputText value="#{utilBean.utilSelect.nif}" />
+ 
+                <h:outputText value="Email:" />
+                <h:outputText value="#{utilBean.utilSelect.email}"/>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+
+</html>

@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Patinhas Felizes</title>
+	<style type="text/css">
+body {
+	background-color: #eeeeee;
+	font-size: 12px
+}
+</style>
+</h:head>
+<h:body>
+	<div align="center">
+		<p:layout style="min-width:1300px;max-width:1300px;min-height:1200px">
+
+			<p:layoutUnit position="north" size="200">
+				<p:layout style="max-width:100%;min-height:100%">
+					<p:layoutUnit position="west" size="150">
+
+						<h:form>
+							<h:graphicImage value="/img/logo.jpg" />
+						</h:form>
+
+					</p:layoutUnit>
+				</p:layout>
+
+				<p:layout>
+
+					<p:layoutUnit position="north" size="50">
+						<ui:insert name="centro">
+							<ui:include src="menu.xhtml" />
+						</ui:insert>
+					</p:layoutUnit>
+
+
+				</p:layout>
+
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="280">
+				<ui:insert name="noticias">
+					<h:form>
+						<p:menu style="width: 260px">
+							<p:submenu label="Feed de notícias">
+								<p:menuitem value="Login" />
+								<p:menuitem value="Fazer meu cadastro" />
+							</p:submenu>
+						</p:menu>
+					</h:form>
+				</ui:insert>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<ui:insert name="centro">
+                        O que estiver aqui será substituido!
+                    </ui:insert>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="50">
+			rodape	
+			</p:layoutUnit>
+		</p:layout>
+	</div>
+</h:body>
+</html>

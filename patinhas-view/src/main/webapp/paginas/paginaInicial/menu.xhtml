@@ -1,0 +1,177 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form prependId="false">
+		<div class="leftmenu">
+			<div class="headermenu">
+				<ul class="dropdown">
+					<li role="presentation" class="dropdown"><a
+						class="dropdownIcon" data-toggle="dropdown" data-target="#"
+						href="#"> <i class="fa fa-sign-in fa-3x"></i></a>
+						<ul class="dropdown-menu">
+							<li class="ponta"></li>
+							<li><h:commandLink id="menuUsuariosAgro"
+									action="#{manterUsuarioController.abreIniciar()}"
+									rendered="#{manterUsuarioController.menuUsuario}">
+									<span class="icon-chevron-right" />
+											#{message['label.usuarios']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuAmbienteSAP"
+									action="#{manterAmbienteController.abreIniciar()}"
+									rendered="#{manterAmbienteController.menuAmbiente}">
+									<span class="icon-chevron-right" />
+											#{message['label.ambiente.sap']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuVeiculo"
+									action="#{manterVeiculoController.abreIniciar()}"
+									rendered="#{manterVeiculoController.menuVeiculo}">
+									<span class="icon-chevron-right" />
+											#{message['label.veiculo']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuMotorista"
+									action="#{manterMotoristaController.abreIniciar()}"
+									rendered="#{manterMotoristaController.menuMotorista}">
+									<span class="icon-chevron-right" />
+											#{message['label.motorista']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuProdutor"
+									action="#{manterProdutorController.abreIniciar()}"
+									rendered="#{manterProdutorController.menuProdutor}">
+									<span class="icon-chevron-right" />
+											#{message['label.produtor']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuPerfil"
+									action="#{manterPerfilController.abreIniciar()}"
+									rendered="#{manterPerfilController.menuPerfil}">
+									<span class="icon-chevron-right" />
+											#{message['label.perfil']}
+										</h:commandLink></li>
+							<li><h:commandLink id="atrPerfil"
+									action="#{atribuirPerfilController.abreIniciar()}"
+									rendered="#{atribuirPerfilController.menuAtribuirPerfil}">
+									<span class="icon-chevron-right" />
+											#{message['label.atr.perfil']}
+										</h:commandLink></li>
+							<li><h:commandLink id="ambientePerfil"
+									action="#{atribuirAmbienteController.abreIniciar()}"
+									rendered="#{atribuirPerfilController.menuAmbiente}">
+									<span class="icon-chevron-right" />
+											#{message['label.atr.ambiente']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuParametroIntegracao"
+									action="#{manterParametroIntegracaoController.abreIncluir()}"
+									rendered="#{atribuirPerfilController.menuParametro}">
+									<span class="icon-chevron-right" />
+											#{message['label.parametro.integracao']}
+										</h:commandLink></li>
+
+							<li><h:commandLink id="menuBalanca"
+									action="#{manterBalancaController.abreIniciar()}"
+									rendered="#{atribuirPerfilController.menuBalanca}">
+									<span class="icon-chevron-right" />
+											#{message['label.balanca']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuTicket"
+									action="#{manterTicketController.abreIniciar()}"
+									rendered="#{atribuirPerfilController.menuTicket}">
+									<span class="icon-chevron-right" />
+											#{message['label.ticket']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuTransgenia"
+									action="#{manterTransgeniaController.abreIniciar()}"
+									rendered="#{atribuirPerfilController.menuTransgenia}">
+									<span class="icon-chevron-right" />
+											#{message['label.transgenia']}
+										</h:commandLink></li>
+
+						</ul></li>
+
+					<li role="presentation" class="dropdown"><a
+						class="dropdownIcon" data-toggle="dropdown" data-target="#"
+						href="#"><i class="fa fa-ticket fa-3x"></i></a>
+						<ul class="dropdown-menu">
+							<li class="ponta"></li>
+							<li><h:commandLink id="menuClassificacao"
+									action="#{manterClassificacaoController.abreIniciar()}"
+									rendered="#{manterClassificacaoController.menuClassificacao}">
+									<span class="icon-chevron-right" />
+											#{message['label.classificacao']}
+										</h:commandLink></li>
+							<li><h:commandLink
+									action="#{manterRomaneioController.abreIniciar()}"
+									rendered="#{manterRomaneioController.menuRomaneio}">
+									<span class="icon-chevron-right" />
+											#{message['label.romaneio']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuPesagem"
+									action="#{manterPesagemController.abreIniciar()}"
+									rendered="#{manterPesagemController.menuClassificacao}">
+									<span class="icon-chevron-right" />
+											#{message['label.pesagem']}
+										</h:commandLink></li>
+						</ul></li>
+
+					<li role="presentation" class="dropdown"><a
+						class="dropdownIcon" data-toggle="dropdown" data-target="#"
+						href="#"><i class="fa fa-bar-chart fa-3x"></i></a>
+						<ul class="dropdown-menu">
+							<li class="ponta"></li>
+							<li><h:commandLink
+									action="#{manterExtratoProdutorController.abreIniciar()}">
+									<span class="icon-chevron-right" />
+											#{message['label.extrato.produtor']}
+										</h:commandLink></li>
+							<li><h:commandLink
+									action="#{manterSaldoProdutorController.abreIniciar()}">
+									<span class="icon-chevron-right" />
+											#{message['label.saldo.produtor']}
+										</h:commandLink></li>
+							<li><h:commandLink
+									action="#{relatorioRomaneioController.abreIniciar()}"
+									rendered="#{relatorioRomaneioController.menuRelatorios}">
+									<span class="icon-chevron-right" />
+											#{message['label.relatorios.romaneio']}
+										</h:commandLink></li>
+							<li><h:commandLink
+									action="#{configuracaoGraficosController.abreIniciar()}"
+									rendered="#{configuracaoGraficosController.menuDashboard}">
+									<span class="icon-chevron-right" />
+											#{message['label.menu.configurar.graficos']}
+										</h:commandLink></li>
+						</ul></li>
+
+					<li role="presentation" class="dropdown"><a
+						class="dropdownIcon" data-toggle="dropdown" data-target="#"
+						href="#"><i class="fa fa-arrows-h fa-3x"></i></a>
+						<ul class="dropdown-menu">
+							<li class="ponta"></li>
+							<li><h:commandLink id="menuConfigJob"
+									action="#{configuracaoJobController.abreIniciar()}"
+									rendered="#{configuracaoJobController.menuConfigJob}">
+									<span class="icon-chevron-right" />
+											#{message['label.configurar.jobs']}
+										</h:commandLink></li>
+							<li><h:commandLink id="menuConfig"
+									action="#{manterCampoRomaneioController.abreIniciar()}"
+									rendered="#{manterCampoRomaneioController.menuConfigCampos}">
+									<span class="icon-chevron-right" />
+											#{message['label.configurar.op.romaneio']}
+										</h:commandLink></li>
+							<li><h:commandLink id="painelSAP"
+									action="#{painelAutomacaoSAPController.abreIniciar()}"
+									rendered="#{painelAutomacaoSAPController.menuAutomacaoSAP}">
+									<span class="icon-chevron-right" />
+											#{message['label.painel.automacao']}
+										</h:commandLink></li>
+						</ul></li>
+
+				</ul>
+
+			</div>
+
+		</div>
+	</h:form>
+</ui:composition>

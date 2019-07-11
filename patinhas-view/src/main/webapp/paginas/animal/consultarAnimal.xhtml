@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:toolbar>
+	<f:facet name="right">
+		<p:commandLink icon="ui-icon-new" action="#{animalController.novo()}"
+			value="Novo" class="btn btn-default" update="@form" />
+	</f:facet>
+</p:toolbar>
+
+
+<p:separator />
+
+
+<p:dataGrid var="animal" value="#{animalController.animais}" columns="3"
+	layout="grid" rows="12" paginator="true" id="animal"
+	currentPageReportTemplate=" Mostrando {startRecord} - {endRecord} de {totalRecords}"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+	<f:facet name="header">Meus Animais</f:facet>
+	<p:panel header="#{animal.nome}" style="text-align:center">
+
+		<h:panelGrid columns="1">
+
+			<h:graphicImage value="/imagemAnimnal?idAnimal=#{animal.id}"
+				style="height: 170px; " />
+		</h:panelGrid>
+
+		<h:outputText value="#{animal.dataNascimento}" />
+		<br />
+		<br />
+		<p:commandButton oncomplete="PF('animalDetail').show()"
+			title="Adicionar fotos" icon="fa fa-plus">
+			<f:setPropertyActionListener value="#{animal}"
+				target="#{animalController.animal}" />
+		</p:commandButton>
+
+		<p:commandButton immediate="true"
+			action="#{animalController.atualizar()}"
+			title="Actualizar dados do animal" icon="fa fa-fw fa-edit"
+			type="button" update="@form">
+			<f:setPropertyActionListener value="#{animal}"
+				target="#{animalController.animal}" />
+		</p:commandButton>
+
+		<p:commandButton title="Delete"
+			actionListener="#{animalController.delete(animal)}"
+			icon="ui-icon-trash" update="@form" />
+
+
+	</p:panel>
+
+</p:dataGrid>
+
+
+<!-- Para adicionar fotos -->
+
+<p:dialog header="Adicionar Fotos" widgetVar="animalDetail" modal="true"
+	showEffect="fade" hideEffect="fade" resizable="false">
+	<h:form enctype="multipart/form-data">
+
+		<p:outputPanel id="animalDetail" style="text-align:center;">
+			<p:panelGrid columns="2"
+				rendered="#{not empty animalController.animal}"
+				columnClasses="label,value">
+
+				<p:panel id="idPanelAnimalFotos" header="Adicionar"
+					style="width:100%; text-align:center;  border: 3px solid gray;">
+
+					<p:outputLabel for="aniFotos" />
+					<p:fileUpload id="aniFotos"
+						fileUploadListener="#{animalController.uploadPhoto}"
+						mode="advanced" sizeLimit="10007200"
+						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						invalidFileMessage="São permitidas somente imagens do tipo (gif, jpeg, jpg e png)"
+						invalidSizeMessage="O tamanho máximo permitido é de 1000KB."
+						onstart="console.log('Iniciar o carregamento das fotos')"
+						onerror="console.log('Erro na requisição de envio')"
+						oncomplete="console.log('Envio concluído')" label="Fotos"
+						uploadLabel="Carregar" cancelLabel="Cancelar" multiple="true" />
+					<p:growl id="messages" showDetail="true" />
+
+				</p:panel>
+				<p:commandLink icon="ui-icon-previous"
+					action="#{animalController.voltar()}" immediate="true"
+					style="margin-left: 7px;" class="btn btn-default" value="Voltar"
+					update="@form" />
+
+			</p:panelGrid>
+		</p:outputPanel>
+	</h:form>
+</p:dialog>
+</html>

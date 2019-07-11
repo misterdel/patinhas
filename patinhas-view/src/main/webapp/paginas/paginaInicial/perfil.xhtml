@@ -1,0 +1,83 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<div class="headerpanel">
+	<div class="headerright">
+		<div class="info" style="margin-top: -13px;">
+			<h:outputLabel value="Olá" style="color:#FFF" />
+			, #{acessarSistemaController.formulario.entidade.nome}
+			<p>
+				<h:outputLabel style="color:#FFF"
+					value="#{message['label.ambiente']}: " />
+				<h:outputText
+					value="#{acessarSistemaController.formulario.ambiente.descricao}"
+					style="margin-left: 5px;" />
+				<h:outputText
+					value="Filial #{acessarSistemaController.formulario.filial}"
+					style="margin-left: 5px;" />
+			</p>
+			<p>
+				<h:outputLabel style="color:#FFF"
+					value="#{message['label.data.ultimo.acesso']}: " />
+				<h:outputText
+					value="#{acessarSistemaController.formulario.entidade.dataUltimoAcessoAnterior}"
+					style="margin-left: 5px;">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+				</h:outputText>
+			</p>
+			<p>
+				<h:form prependId="false">
+					<h:panelGroup id="formIntegracaoSAP">
+						<h:panelGroup
+							rendered="#{acessarSistemaController.formulario.integracao != null}">
+							<h:outputLabel style="color:#FFF"
+								value="#{message['label.status.integracao.sap']}: " />
+							<h:outputText value="Online"
+								style="margin-left: 5px; color:#39be3f; font-weight: bold; "
+								rendered="#{acessarSistemaController.formulario.integracao}" />
+							<h:outputText value="Offline"
+								style="margin-left: 5px; color:red; font-weight: bold; cursor:ponter;"
+								rendered="#{not acessarSistemaController.formulario.integracao}" />
+							<p:commandLink style="width: 17px;" update=":formIntegracaoSAP"
+								title="atualizar"
+								action="#{acessarSistemaController.verificarIntegracaoSAP()}">
+								<p:graphicImage value="/resources/img/refresh.png"
+									style="width: 17px; display: inline;" />
+							</p:commandLink>
+						</h:panelGroup>
+						<p:poll interval="5"
+							listener="#{acessarSistemaController.verificarIntegracaoSAP()}"
+							onstart="desabilitarStatusDialog()"
+							oncomplete="habilitarStatusDialog()"
+							update=":formIntegracaoSAP, verificando"
+							rendered="#{acessarSistemaController.formulario.integracao == null}" />
+						<p:poll interval="900"
+							listener="#{acessarSistemaController.verificarIntegracaoSAP()}"
+							onstart="desabilitarStatusDialog()"
+							oncomplete="habilitarStatusDialog()"
+							update=":formIntegracaoSAP, verificando"
+							rendered="#{acessarSistemaController.formulario.integracao != null}" />
+						<h:outputLabel id="verificando" style="color:#dad504"
+							value="Verificando Conexão SAP..."
+							rendered="#{acessarSistemaController.formulario.integracao == null}" />
+					</h:panelGroup>
+
+
+				</h:form>
+			</p>
+		</div>
+		<div class="dropdown notification" style="margin-top: 13px !important">
+			<h:form>
+				<p:commandButton
+					style="  font-size: 15px; width: 51%;  height: 29px;  padding: 7px;  margin: 3px"
+					action="#{acessarSistemaController.logout()}" value=""
+					update="@form" icon="iconsweets-off iconsweets-white" />
+			</h:form>
+		</div>
+	</div>
+</div>
+</html>

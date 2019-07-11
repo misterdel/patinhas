@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<p:focus context="idPanelCategoria" />
+<p:panel id="idPanelCategoria" header="Categoria - Consulta">
+	<p:messages id="mensagemConsulta" />
+
+	<h:panelGrid columns="2" cellpadding="10" cellspacing="10">
+
+		<h:panelGrid columns="1">
+			<p:outputLabel for="txtCodigo" value="Codigo:" />
+			<p:inputText id="txtCodigo"
+				value="#{categoriaController.categoria.codigo}" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="1">
+			<p:outputLabel for="txtNome" value="Nome:" />
+			<p:inputText id="txtNome"
+				value="#{categoriaController.categoria.descricao}" />
+		</h:panelGrid>
+
+	</h:panelGrid>
+
+	<p:separator />
+
+	<div style="float: right;">
+		<p:commandButton action="#{categoriaController.novo()}" value="Novo"
+			ajax="false" />
+		<p:commandButton action="#{categoriaController.consultar()}"
+			value="Consultar" update="@form" />
+	</div>
+
+	<br />
+	<br />
+
+	<p:dataTable rendered="#{not empty categoriaController.categorias}"
+		var="categoria" value="#{categoriaController.categorias}"
+		widgetVar="categoriasTable" paginator="true" rows="10"
+		paginatorPosition="bottom"
+		currentPageReportTemplate=" Resultados {startRecord} - {endRecord} de {totalRecords}"
+		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+		<p:column sortBy="#{categoria.codigo}" headerText="Código"
+			style="text-align:center;">
+			<h:outputText style="text-align: center;" value="#{categoria.codigo}" />
+		</p:column>
+
+		<p:column sortBy="#{categoria.descricao}" headerText="Descrição"
+			style="text-align:center;">
+			<h:outputText style="text-align: center;"
+				value="#{categoria.descricao}" />
+		</p:column>
+
+		<p:column headerText="Ações" style="text-align:center;" width="80">
+
+			<h:panelGrid columns="2" styleClass="acoesSemBorda">
+
+				<h:commandLink title="Editar">
+
+					<h:graphicImage value="/resources/img_all/edit.png" />
+
+					<f:setPropertyActionListener value="#{categoria}"
+						target="#{categoriaController.categoria}" />
+
+					<f:setPropertyActionListener value="#{false}"
+						target="#{categoriaController.consulta}" />
+
+				</h:commandLink>
+				<p:commandLink update="@form" title="Excluir"
+					oncomplete="PF('categoriaDialog').show()">
+
+					<h:graphicImage value="/resources/img_all/lixo.png" />
+
+					<f:setPropertyActionListener value="#{categoria}"
+						target="#{categoriaController.categoria}" />
+
+				</p:commandLink>
+
+			</h:panelGrid>
+
+		</p:column>
+
+	</p:dataTable>
+
+</p:panel>
+
+<p:dialog header="Remover Categoria" widgetVar="categoriaDialog"
+	modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+	width="400">
+	<p:outputPanel id="categoriaModalid">
+			Deseja realmente remover #{categoriaController.categoria.descricao} ?
+			<p:spacer />
+		<p:separator />
+		<p:commandButton value="Sim" update="@form"
+			action="#{categoriaController.remover()}" />
+		<p:commandButton value="Não" update="@form" />
+	</p:outputPanel>
+</p:dialog>
+
+
+</html>

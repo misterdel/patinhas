@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="patinhas" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<jta-data-source>java:jboss/datasources/patinhasDS</jta-data-source>
+
+		<class>pt.javeiros.patinhas.modelo.Utilizador</class>
+		 <class>pt.javeiros.patinhas.modelo.Raca</class>
+		 <class>pt.javeiros.patinhas.modelo.Categoria</class>
+		<class>pt.javeiros.patinhas.modelo.Animal</class>
+		 <class>pt.javeiros.patinhas.modelo.Perfil</class>
+		<class>pt.javeiros.patinhas.modelo.Visibilidade</class>
+
+		<properties>
+
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgresql://localhost:5433/DB_Patinhas" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="A4junior" />
+
+			<property name="hibernate.connection.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+
+	</persistence-unit>
+</persistence>

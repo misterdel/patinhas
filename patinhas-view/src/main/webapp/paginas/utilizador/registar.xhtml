@@ -1,0 +1,175 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:panel id="util" header="Formulário para o registo de utilizador"
+	style="width:100%" rendered="#{utilBean.utilizador != null}">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="utilNome" value="Nome:" />
+				<p:inputText id="utilNome" style="width: 100%" maxlength="150"
+					value="#{utilBean.utilizador.nome}" required="true"
+					requiredMessage="O nome é obrigatório" />
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="utilApelido" value="Apelido:" />
+				<p:inputText id="utilApelido" style="width: 100%" maxlength="150"
+					value="#{utilBean.utilizador.apelido}" required="true"
+					requiredMessage="O apelido é obrigatório" />
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-2">
+			<div class="form-group">
+				<p:outputLabel for="util_nif" value="Nif:" />
+				<p:inputText id="util_nif" maxlength="9" style="width: 100%"
+					value="#{utilBean.utilizador.nif}" required="true"
+					requiredMessage="O nif é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-group" style="text-align: left;">
+				<p:outputLabel for="util_dataNascimento" value="Data de Nascimento:" />
+				<p:calendar id="util_dataNascimento" style="width: 100%"
+					value="#{utilBean.utilizador.dataNascimento}" mask="true"
+					locale="pt" navigator="true" pattern="dd/mm/yyyy" required="true"
+					requiredMessage="A data de nascimento é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-group">
+				<p:outputLabel for="util_sexo" value="Sexo:" />
+				<p:selectOneMenu id="util_sexo" value="#{utilBean.utilizador.sexo}"
+					style="width: 100%" required="true"
+					requiredMessage="O sexo é obrigatório">
+					<f:selectItem itemLabel="Select Sex" itemValue="" />
+					<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+					<f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+				</p:selectOneMenu>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="util_email" value="Email: " />
+				<p:inputText id="util_email" maxlength="150" style="width: 100%"
+					value="#{utilBean.utilizador.email}" required="true"
+					requiredMessage="O email é obrigatório" />
+			</div>
+		</div>
+
+	  <div class="col-md-2">
+			<div class="form-group">
+				<p:outputLabel for="util_password" value="Passeword: " />
+				<p:password id="util_password" feedback="true" inline="true"
+					maxlength="150" style="width: 100%"
+					value="#{utilBean.utilizador.password}" required="true"
+					requiredMessage="A password é obrigatório" />
+			</div>
+		</div>  
+	</div>
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="util_endereco" value="Endereço: " />
+				<p:inputText id="util_endereco" maxlength="150" style="width: 100%"
+					value="#{utilBean.utilizador.endereco}" required="true"
+					requiredMessage="O endereço é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="util_localidade" value="Localidade: " />
+				<p:inputText id="util_localidade" maxlength="150"
+					style="width: 100%" value="#{utilBean.utilizador.localidade}"
+					required="true" requiredMessage="A localidade é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-group">
+				<p:outputLabel for="util_codigoPostal" value="Codigo-Postal: " />
+				<p:inputMask id="util_codigoPostal" mask="9999-999"
+					style="width: 80%" value="#{utilBean.utilizador.codigoPostal}"
+					required="true" requiredMessage="O código-postal é obrigatório" />
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="util_freguesia" value="Freguesia: " />
+				<p:inputText id="util_freguesia" maxlength="150" style="width: 100%"
+					value="#{utilBean.utilizador.freguesia}" required="true"
+					requiredMessage="O freguesia é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-group">
+				<p:outputLabel for="util_conselho" value="Conselho: " />
+				<p:inputText id="util_conselho" maxlength="150" style="width: 100%"
+					value="#{utilBean.utilizador.conselho}" required="true"
+					requiredMessage="O conselho é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-group">
+				<p:outputLabel for="util_destrito" value="Destrito: " />
+				<p:inputText id="util_destrito" maxlength="150" style="width: 100%"
+					value="#{utilBean.utilizador.destrito}" required="true"
+					requiredMessage="O destrito é obrigatório" />
+			</div>
+		</div>
+		
+	<div class="col-md-3">
+		<div class="form-group">		
+		<p:outputLabel for="perfil" value="Perfil do utilizador: " />
+			<p:selectOneMenu id="perfil" style="width:100%" converter="entityConverter"
+				value="#{utilBean.utilizador.perfil}" required="true"
+				requiredMessage="A raça é obrigatório" filter="true"
+				filterMatchMode="contains">
+				<f:selectItem itemLabel="Seleciona o perfil" itemValue=""
+					noSelectionOption="false" />
+				<f:selectItems value="#{utilBean.perfis}" var="p"
+					itemLabel="#{p.descricao}" itemValue="#{p}" />
+			</p:selectOneMenu>
+		</div>
+	</div>
+	</div>
+	<p:separator />
+
+	<div class="row">
+		<div class="col-md-5">
+			<div class="button-group" style="float: right;">
+				<p:commandLink id="btn_salvar" icon="ui-icon-fa-save"
+					class="btn btn-default" action="#{utilBean.save()}" value="Salvar"
+					ajax="false" />
+
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="button-group" style="float: right;">
+				<p:commandLink icon="ui-icon-previous" action="#{utilBean.voltar()}"
+					immediate="true" style="margin-left: 3px;" class="btn btn-default"
+					value="Voltar" update="@form" />
+			</div>
+		</div>
+	</div>
+</p:panel>
+<p:blockUI block="util" trigger="btn_salvar" />
+</html>

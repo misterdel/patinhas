@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<p:toolbar>
+	<f:facet name="right">
+		<p:commandLink icon="ui-icon-new" action="#{aniBean.NovoAnimal()}"
+			value="Novo" class="btn btn-default" update="@form" />
+	</f:facet>
+</p:toolbar>
+
+
+<p:separator />
+
+
+<p:dataGrid var="animal" value="#{aniBean.animais}" columns="3"
+	layout="grid" rows="12" paginator="true" id="animal"
+	currentPageReportTemplate=" Mostrando {startRecord} - {endRecord} de {totalRecords}"
+	paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+	<f:facet name="header">Meus Animais</f:facet>
+	<p:panel header="#{animal.nome}" style="text-align:left">
+
+		<h:outputText value="#{animal.cor}" /> <br />
+		<h:outputText value="#{animal.idade}" /><br />
+		<h:outputText value="#{animal.porte.toString()}" /><br />
+		<h:outputText value="#{animal.raca}" /><br />
+		<h:outputText value="#{animal.situacaoClinica}" /><br />
+		<h:outputText value="#{animal.dataNascimento}" /><br />
+		<h:outputText value="#{animal.obs}" /><br />
+		<h:outputText value="#{animal.comentario}" />
+		<br />
+
+		<p:separator />
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="button-group" style="float: right;">
+						<p:commandLink class="btn btn-danger" value="Apagar"
+							style="margin-left:15px;"
+							actionListener="#{aniBean.deleteAux(animal)}"
+							oncomplete="PF('confirmaExclusao').show();"
+							update="formAnimal" />
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="button-group" style="float: right;">
+						<p:commandLink icon="editar-icon" value="Editar" class="btn btn-default"
+							action="#{aniBean.editarAux(animal)}"
+							update="formAnimal" />
+					</div>
+				</div>
+			</div>
+
+	</p:panel>
+</p:dataGrid>
+			
+			<p:confirmDialog style="float: top;  width: 25%"
+		message="Deseja realmente excluir este animal: #{aniBean.animal.nome} ?"
+		widgetVar="confirmaExclusao">
+
+		<p:commandButton value="Sim" update="formAnimal" class="btn btn-default"
+			oncomplete="PF('confirmaExclusao').hide();"
+			action="#{aniBean.delete()}" />
+		<p:commandButton value="Não" class="btn btn-default"
+			oncomplete="PF('confirmaExclusao').hide();" />
+	</p:confirmDialog>
+
+</html>

@@ -1,0 +1,402 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>Patinhas</title>
+
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/plugins/pace/pace.css"
+		rel="stylesheet" />
+	<script src="//www.google-analytics.com/analytics.js"></script>
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/plugins/pace/pace.js"></script>
+
+
+	<link rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/plugins/bootstrap/css/bootstrap.min.css" />
+	<link
+		href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic"
+		rel="stylesheet" type="text/css" />
+	<link
+		href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+		rel="stylesheet" type="text/css" />
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/icons/font-awesome/css/font-awesome.min.css"
+		rel="stylesheet" />
+
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css"
+		rel="stylesheet" />
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/plugins.css"
+		rel="stylesheet" />
+
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/demo.css"
+		rel="stylesheet" />
+
+</h:head>
+
+<h:body class="pace-done" style="">
+	<div class="pace  pace-inactive">
+
+		<div class="pace-activity"></div>
+	</div>
+	<div id="logout_background" class="popup_background"
+		style="opacity: 0; visibility: hidden; background-color: black; position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px; z-index: 2000; transition: 0.3s ease-in-out;"></div>
+	<div id="logout_wrapper" class="popup_wrapper"
+		style="opacity: 0; visibility: hidden; position: fixed; overflow: auto; z-index: 2001; transition: 0.3s ease-in-out; top: 0px; right: 0px; left: 0px; bottom: 0px; text-align: center; display: none;">
+		<div id="logout" data-popup-initialized="true" class="popup_content"
+			aria-hidden="true" role="dialog" aria-labelledby="open_37703538"
+			style="opacity: 0; visibility: hidden; display: inline-block; outline: none; transition: 0.3s ease-in-out; text-align: left; position: relative; vertical-align: middle;">
+
+			<!-- Popup sair -->
+			<div class="logout-message">
+				<img class="img-circle img-logout"
+					src="#{facesContext.externalContext.requestContextPath}/resources/img/profile-pic.jpg"
+					alt="" />
+				<h3>
+					<i class="fa fa-sign-out text-green"></i> Ready to go?
+				</h3>
+				<p>
+					Select "Logout" below if you are ready<br /> to end your current
+					session.
+				</p>
+				<ul class="list-inline">
+					<li><a href="login.html" class="btn btn-green"> <strong>Logout</strong>
+					</a></li>
+					<li>
+						<button class="logout_close btn btn-green">Cancel</button>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="popup_align"
+			style="display: inline-block; vertical-align: middle; height: 100%;"></div>
+	</div>
+
+	<div id="wrapper">
+
+		<!-- TEMPLATE ##### MENU TOP -->
+		<nav class="navbar-top" role="navigation">
+
+			<div class="navbar-header">
+				<!-- <div class="navbar-brand">
+                    <a href="index.html">
+                        <img src="#{facesContext.externalContext.requestContextPath}/resources/img_all/logoPF.PNG" class="img-responsive" 
+                         style="height: 100%;"/> 
+                          </a>
+                </div> -->
+
+				 <h3 style="color: white; text-align:center; margin-top: 10	px">Patinhas Felizes</h3>
+
+				<button type="button" class="navbar-toggle pull-right"
+					data-toggle="collapse" data-target=".sidebar-collapse">
+					<i class="fa fa-bars"></i> Menu
+				</button>
+
+			</div>
+
+			<div class="nav-top">
+
+				<!-- esconder menu -->
+				<ul class="nav navbar-left">
+					<li class="tooltip-sidebar-toggle"><a href="#"
+						id="sidebar-toggle" data-toggle="tooltip" data-placement="right"
+						title="Sidebar Toggle"> <i class="fa fa-bars"></i>
+					</a></li>
+
+				</ul>
+
+				<ul class="nav navbar-right">	
+					<li class="side-user hidden-xs"><img class="img-circle"
+						src="#{facesContext.externalContext.requestContextPath}/resources/img/juniorFT.jpg"
+						style="height: 90%; margin-right: 10px" />
+					</li>	
+					
+					<li class="dropdown">
+                        <a href="#" class="alerts-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell"></i> 
+                            <span class="number">9</span><i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-scroll dropdown-alerts">
+
+                            <!-- Alerts Dropdown Heading -->
+                            <li class="dropdown-header">
+                                <i class="fa fa-bell"></i> 9 New Alerts
+                            </li>
+
+                            <!-- Alerts Dropdown Body - This is contained within a SlimScroll fixed height box. You can change the height using the SlimScroll jQuery features. -->
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><li id="alertScroll" style="overflow: hidden; width: auto; height: 200px;">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="#">
+                                            <div class="alert-icon blue pull-left">
+                                                <i class="fa fa-comment"></i>
+                                            </div>
+                                            Animais adicionados
+                                            <span class="badge blue pull-right">15</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <div class="alert-icon orange pull-left">
+                                                <i class="fa fa-wrench"></i>
+                                            </div>
+                                            Animais em interesse
+                                            <span class="badge orange pull-right">3</span>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li></div>
+
+                            <!-- Alerts Dropdown Footer -->
+                            <li class="dropdown-footer">
+                                <a href="#">View All Alerts</a>
+                            </li>
+
+                        </ul>
+                        <!-- /.dropdown-menu -->
+                    </li>
+					   <li class="dropdown">
+                        <a href="#" class="messages-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope"></i>
+                            <span class="number">4</span> <i class="fa fa-caret-down"></i>
+                        </a>
+						<ul class="dropdown-menu dropdown-scroll dropdown-messages">
+ 						<!-- Messages Dropdown Heading -->
+                            <li class="dropdown-header">
+                                <i class="fa fa-envelope"></i> 4 New Messages
+                            </li>
+							
+						</ul></li>
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <i class="fa fa-user"></i> <i
+							class="fa fa-caret-down"></i>
+					</a>
+						<ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="#{facesContext.externalContext.requestContextPath}/paginas/utilizador/perfilUtilizador.xhtml">
+                                    <i class="fa fa-user"></i> Meu Perfil
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailbox.html">
+                                    <i class="fa fa-envelope"></i> Mensagens
+                                    <span class="badge green pull-right">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="calendar.html">
+                                    <i class="fa fa-calendar"></i> Calendário
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-gear"></i> Settings
+                                </a>
+                            </li>
+                            <li><a class="logout_open" href="#logout"
+								data-popup-ordinal="0" id="open_37703538"> <i
+									class="fa fa-sign-out"></i> Logout <strong>André
+										Cahango</strong>
+							</a></li>
+						</ul></li>
+						
+				<!--	<li>
+						 cahangoa 
+					<p:commandButton  class="btn btn-default"  oncomplete="PF('sidebar2').show()" />
+                              
+					</li> -->
+				</ul>
+
+			</div>
+
+		</nav>
+
+
+		<!-- TEMPLATE ##### MENU LATERAL ESQUERDO -->
+		<nav class="navbar-side" role="navigation">
+			<div class="navbar-collapse sidebar-collapse collapse">
+				<ul id="side" class="nav navbar-nav side-nav">
+
+					<li class="side-user hidden-xs"><img class="img-circle"
+						src="#{facesContext.externalContext.requestContextPath}/resources/img_all/logo.jpg"
+						style="height:25%;" />
+						<p class="welcome">
+							<i class="fa fa-key"></i> Logged in as
+						</p>
+						<p class="name tooltip-sidebar-logout">
+							Cahango <span class="last-name"> André</span> <a
+								style="color: inherit" class="logout_open" href="#logout"
+								data-toggle="tooltip" data-placement="top" title="Logout"
+								data-popup-ordinal="1" id="open_29748569"><i
+								class="fa fa-sign-out"></i></a>
+						</p>
+						<div class="clearfix"></div>
+					</li>
+					<li class="nav-search">
+                        <form role="form">
+                            <input type="search" class="form-control" placeholder="Search..." />
+                            <button class="btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </a>
+                    </li>
+                    
+					<li class="panel"><a href="javascript:;" data-parent="#side"
+						data-toggle="collapse" class="accordion-toggle"
+						data-target="#utilizadores"> <i class="fa fa-group fa-muted"></i>
+							Utilizadores <i class=""></i>
+					</a>
+						<ul class="collapse nav" id="utilizadores">
+							<li><a href="flot.html"> <i
+									class="fa fa-angle-double-right"></i> Registar
+							</a></li>
+							<li><a href="morris.html"> <i
+									class="fa fa-angle-double-right"></i> Listar
+							</a></li>
+							<li><a href="flot.html"> <i	class="fa fa-pencil fa-fw"></i> Editar
+							</a></li>
+						</ul></li>
+						
+					<li class="panel"><a href="javascript:;" data-parent="#side"
+						data-toggle="collapse" class="accordion-toggle"
+						data-target="#animais"> <i class="fa fa-paw" aria-hidden="true"></i>
+							Animais <i class="fa fa-caret-down"></i>
+					</a>
+						<ul class="collapse nav" id="animais">
+							<li><a href="flot.html"> <i
+									class="fa fa-angle-double-right"></i> Registar
+							</a></li>
+							<li><a href="morris.html"> <i
+									class="fa fa-angle-double-right"></i> Listar
+							</a></li>
+							<li><a href="morris.html"> <i
+									class="fa fa-pencil fa-fw"></i> Editar
+							</a></li>
+						</ul></li>
+
+					<li class="panel"><a href="javascript:;" data-parent="#side"
+						data-toggle="collapse" class="accordion-toggle"
+						data-target="#relatorios"> <i class="fa fa-bar-chart-o"></i>
+							Relatórios <i class="fa fa-caret-down"></i>
+					</a>
+						<ul class="collapse nav" id="relatorios">
+							<li><a href="flot.html"> <i
+									class="fa fa-group fa-muted"></i> Utilizadores
+							</a></li>
+							<li><a href="morris.html"> <i
+									class="fa fa-paw" aria-hidden="true"></i> Animais
+							</a></li>
+						</ul></li>
+						
+					<li class="panel"><a href="javascript:;" data-parent="#side"
+						data-toggle="collapse" class="accordion-toggle"
+						data-target="#administracao"> <i class="fa fa-bar-chart-o"></i>
+							Administração <i class="fa fa-caret-down"></i></a>
+							
+							<ul class="collapse nav" id="administracao">
+								<li class="panel"><a href="javascript:;" data-parent="#side"
+									data-toggle="collapse" class="accordion-toggle"
+									data-target="#adminPerfis"> <i class="fa fa-bar-chart-o"></i>
+										Perfis <i class="fa fa-caret-down"></i></a>
+										
+									<ul class="collapse nav" id="adminPerfis">
+										<li><a href="consultar.html"> <i
+												class="fa fa-angle-double-right"></i> Consultar
+										</a></li>
+										<li><a href="edicao.html"> <i
+												class="fa fa-pencil fa-fw"></i> Editar
+										</a></li>
+										<li><a href="reposicao.html"> <i
+												class="fa fa-angle-double-right"></i> Reposição
+										</a></li>
+									</ul></li>
+							</ul>
+						</li>
+				</ul>
+
+			</div>
+
+		</nav>
+
+		<!-- ########### tela principal -->
+		<div id="page-wrapper">
+
+
+			<div class="page-content page-content-ease-in">
+
+ <!--  cahangoa 
+						<p:sidebar widgetVar="sidebar2" position="right" baseZIndex="10000">
+					    <h1 style="font-weight:normal">Right Sidebar</h1>
+					    <p:commandButton value="Cancel" oncomplete="PF('sidebar2').hide()"/>
+						</p:sidebar>-->
+				<!-- ########### dados da tela -->
+				<div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-title">
+                            <h1>Utilizadores
+                                <small>Listar Utilizadores</small>
+                            </h1>
+                            <ol class="breadcrumb">
+                                <li><i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                                </li>
+                                <li class="active">Utilizadores</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+				<!-- ########### formulario -->
+				<div class="row">
+					<ui:insert name="conteudo" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/plugins/bootstrap/bootstrap.min.js"></script>
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/plugins/popupoverlay/jquery.popupoverlay.js"></script>
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/plugins/popupoverlay/defaults.js"></script>
+	<!-- Logout Notification Box -->
+
+	<!-- /#logout -->
+	<!-- Logout Notification jQuery -->
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/plugins/popupoverlay/logout.js"></script>
+	<!-- HISRC Retina Images -->
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/plugins/hisrc/hisrc.js"></script>
+
+	<!-- PAGE LEVEL PLUGIN SCRIPTS -->
+
+	<!-- THEME SCRIPTS -->
+	<script
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/flex.js"></script>
+
+</h:body>
+</html>

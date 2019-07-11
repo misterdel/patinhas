@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon"
+		href="#{facesContext.externalContext.requestContextPath}/resources/img/favicon.ico"
+		type="image/x-icon" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<title>#{message['label.itss.agro']}</title>
+
+	<link rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/bootstrap.min.css"
+		type="text/css" />
+	<link rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/bootstrap-theme.min.css"
+		type="text/css" />
+	<link rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css"
+		type="text/css" />
+	<link rel="stylesheet"
+		href="#{facesContext.externalContext.requestContextPath}/resources/js/gridster/jquery.gridster.css"
+		type="text/css" />
+
+
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/jquery-ui.min.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/custom.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/jquery.numeric.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/jquery.mask.min.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/jquery.maskMoney.min.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/scripts.js"></script>
+
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/gridster/jquery.gridster.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/gridster/gridster-bootstrap.js"></script>
+
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/resources/js/FileSaver.js"></script>
+
+	<script type="text/javascript">
+		
+		   function updateToggles(widget){
+		        $( widget.jqId + ' .ui-chkbox .ui-chkbox-box').each(function() {
+		                    var chkbox = $(this);
+		                    if(chkbox.hasClass('ui-state-active')) {
+		                        widget.check(chkbox);
+		                    }
+		                    else {
+		                        widget.uncheck(chkbox);
+		                    }
+		        });
+		    }
+		
+		    PrimeFaces.locales['pt'] = {  
+		            closeText: 'Fechar',  
+		            prevText: 'Anterior',  
+		            nextText: 'Próximo',  
+		            currentText: 'Começo',  
+		            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],  
+		            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],  
+		            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],  
+		            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],  
+		            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],  
+		            weekHeader: 'Semana',  
+		            firstDay: 0,  
+		            isRTL: false,  
+		            showMonthAfterYear: false,  
+		            yearSuffix: '',  
+		            timeOnlyTitle: 'Só Horas',  
+		            timeText: 'Tempo',  
+		            hourText: 'Hora',  
+		            minuteText: 'Minuto',  
+		            secondText: 'Segundo',  
+		            ampm: false,  
+		            month: 'Mês',  
+		            week: 'Semana',  
+		            day: 'Dia',  
+		            allDayText: 'Todo o Dia'  
+		        };  
+
+		    function start() {
+		    	PF('statusDialog').show();
+		    }
+
+		    function stop() {
+		    	PF('statusDialog').hide();
+		    }
+
+		</script>
+
+	<ui:insert name="head" />
+
+</h:head>
+
+<h:body>
+
+	<p:ajaxStatus
+		onstart="if (STATUS_DIALOG_SHOW) {PF('statusDialog').show();}"
+		oncomplete="if (PF('statusDialog')) { PF('statusDialog').hide(); };setMasks();"
+		onerror="if (PF('statusDialog')) { PF('statusDialog').hide(); };setMasks();"
+		onsuccess="if (PF('statusDialog')) { PF('statusDialog').hide(); };setMasks();" />
+
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<img
+			src="#{facesContext.externalContext.requestContextPath}/resources/img/ajaxloadingbar.gif" />
+	</p:dialog>
+
+	<div class="mainwrapper">
+
+		<div class="top">
+			<div class="logopanel">
+				<h1>
+					<a
+						href="#{facesContext.externalContext.requestContextPath}/paginas/inicial.jsf"><img
+						src="#{facesContext.externalContext.requestContextPath}/resources/img/logo.png"
+						alt="" style="width: 131px; margin-left: 29px;" /> </a>
+				</h1>
+			</div>
+
+			<ui:include src="menu.xhtml" />
+
+			<ui:include src="perfil.xhtml" />
+		</div>
+
+		<div class="main">
+
+			<div class="breadcrumbwidget">
+				<a class="showmenu" href=""></a>
+				<h:form>
+					<ul class="breadcrumb">
+						<li class="active"></li>
+						<!-- 						<li>#{message['label.voce.esta.aqui']}:</li> -->
+						<!-- 						<ui:insert name="breadcrumb" /> -->
+					</ul>
+				</h:form>
+			</div>
+
+
+			<div class="pagetitle">
+				<h1>
+					<ui:insert name="titulo" />
+				</h1>
+			</div>
+			<div class="maincontent">
+				<div class="contentinner">
+					<p:growl id="mensagemGlobal" />
+					<ui:insert name="conteudo" />
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	<div class="footer">
+
+		<div style="padding: 9px 0px 4px 9px;">₢ ITSS SOLUÇÕES EM
+			TECNOLOGIA versão: v.#{message['build.version']} - ITSS AGRO</div>
+
+	</div>
+
+</h:body>
+</html>
