@@ -210,8 +210,7 @@
                             </li>
                             <li><a class="logout_open" href="#logout"
 								data-popup-ordinal="0" id="open_37703538"> <i
-									class="fa fa-sign-out"></i> Logout <strong>André
-										Cahango</strong>
+									class="fa fa-sign-out"></i> Logout <strong>#{loginBean.utilizador.nome} #{loginBean.utilizador.apelido}</strong>
 							</a></li>
 						</ul></li>
 						
@@ -239,7 +238,7 @@
 							<i class="fa fa-key"></i> Logged in as
 						</p>
 						<p class="name tooltip-sidebar-logout">
-							Cahango <span class="last-name"> André</span> <a
+							#{loginBean.utilizador.apelido} <span class="last-name"> #{loginBean.utilizador.nome}</span> <a
 								style="color: inherit" class="logout_open" href="#logout"
 								data-toggle="tooltip" data-placement="top" title="Logout"
 								data-popup-ordinal="1" id="open_29748569"><i

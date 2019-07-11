@@ -1,40 +1,41 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">	
- 
-<h:head></h:head>
-<body>
-	<p:panel style="text-align:center">
-		<f:facet name="header">
-        Tudo por um mundo melhor com 4 patas
-        
-        <h:body>
-				<h:form>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/paginas/templates/template.xhtml">
+	<ui:define name="conteudo">
 
-					<div class="row">
-						<div class="col-md-5">
-							<div class="button-group" style="float: right;">
-								<br />
-								<h:outputText value="This is a secured welcome page!" />
-								<br />
-								<p>Welcome, #{loginBean.nif}</p>
-								<p:commandLink id="btn_logout" icon="ui-icon-fa-save"
-									class="btn btn-default" action="#{loginBean.doLogout}"
-									value="Logout" />
+		<p:growl id="messages" />
 
-							</div>
-						</div>
+		<p:panel style="text-align:center"
+			rendered="#{not empty loginBean.nif}">
+                Tudo por um mundo melhor com 4 patas
+				
+
+						<div class="row">
+				<div class="col-md-5">
+					<div class="button-group" style="float: right;">
+						<br />
+						<h:outputText value="This is a secured welcome page!" />
+						<br />
+						<p>Welcome, #{loginBean.nif}</p>
+						<p:commandLink id="btn_logout" icon="ui-icon-fa-save"
+							class="btn btn-default" action="#{loginBean.doLogout}"
+							value="Logout" />
+
 					</div>
-				</h:form>
-			</h:body>
-		</f:facet>
+				</div>
+			</div>
 
-		<img style="margin-top: 20px"
-			src="#{facesContext.externalContext.requestContextPath}/resources/img_all/FotosAnimais/todosAnimais.jpg" />
-	</p:panel>
 
-</body>
-</html>
+
+			<img style="margin-top: 20px"
+				src="#{facesContext.externalContext.requestContextPath}/resources/img_all/FotosAnimais/todosAnimais.jpg" />
+		</p:panel>
+
+
+	</ui:define>
+
+</ui:composition>

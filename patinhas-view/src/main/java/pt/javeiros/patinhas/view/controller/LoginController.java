@@ -3,17 +3,17 @@
  */
 package pt.javeiros.patinhas.view.controller;
 
+import java.io.IOException;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Context;
 
 import pt.javeiros.patinhas.modelo.Utilizador;
 import pt.javeiros.patinhas.sessao.SessionUtils;
 import pt.javeiros.patinhas.util.UtilObjeto;
-import pt.javeiros.patinhas.view.util.UtilConverter;
 import pt.javeiros.patinhas.view.util.UtilMensagem;
 
 /**
@@ -28,8 +28,9 @@ public class LoginController {
 	private String password;
 	private boolean remember;
 	private @Inject UtilizadorController utilizadorController;
+	private Utilizador utilizador;
 
-	public String doLogin() {
+	public void doLogin() {
 
 		if (nif != null && password != null) {
 
@@ -38,33 +39,41 @@ public class LoginController {
 				 * String passIncriptada = UtilConverter.convertStringToMd5(this.password);
 				 * Utilizador util = utilizadorController.login(this.nif, passIncriptada);
 				 */
-				Utilizador utilizador = utilizadorController.login(this.nif, this.password);
+				 utilizador = utilizadorController.login(this.nif, this.password);
 
 				if (UtilObjeto.isNotNull(utilizador)) {
-					SessionUtils.SetUtilizadorSessao(utilizador);
+					SessionUtils.getContext().getExternalContext().getSessionMap().put("utilizador", utilizador);
 					UtilMensagem.adicionarMensagemSucesso("Utilizador logado com sucesso!");
-					// return "/index.jsf";
-					// return "login/index.xhtml";
-					return "/paginas/index.xhtml?faces-redirect=true";
+
+					try {
+						SessionUtils.getContext().getExternalContext().redirect("/patinhas/paginas/index.jsf");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				} else {
 					UtilMensagem.adicionarMensagemErro("O utilizador não foi autenticado!");
-					return "/login.xhtml?faces-redirect=true";
 				}
 			} else {
 				UtilMensagem.adicionarMensagemErro("O nif não é válido");
-				return "/login.xhtml?faces-redirect=true";
 			}
 
 		} else {
 			UtilMensagem.adicionarMensagemErro("nif ou password invalido!");
-			return "/login.xhtml?faces-redirect=true";
 		}
 	}
 
-	public String doLogout() {
-		HttpSession session = SessionUtils.getSession();
-		session.invalidate();
-		return "/login/login.xhtml?faces-redirect=true";
+	public void doLogout() {
+		//FacesContext context = FacesContext.getCurrentInstance();
+		SessionUtils.getContext().getExternalContext().invalidateSession();
+		try {
+			SessionUtils.getContext().getExternalContext().redirect("/login.jsf");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/**
+		 * HttpSession session = SessionUtils.getSession(); session.invalidate(); return
+		 * "/login/login.xhtml?faces-redirect=true";
+		 */
 	}
 
 	/**
@@ -83,7 +92,7 @@ public class LoginController {
 	}
 
 	public Long getNif() {
-		return UtilObjeto.isNotNull(nif) ? nif : null;
+		return nif;
 	}
 
 	public void setNif(Long nif) {
@@ -92,7 +101,7 @@ public class LoginController {
 
 	public String getPassword() {
 		// UtilObjeto.isNotNull(passIncriptada) ? passIncriptada : null;
-		return UtilObjeto.isNotNull(password) ? password : null;
+		return password;
 	}
 
 	public void setPassword(String password) {
@@ -107,4 +116,11 @@ public class LoginController {
 		this.remember = remember;
 	}
 
+	public Utilizador getUtilizador() {
+		return utilizador;
+	}
+
+	public void setUtilizador(Utilizador utilizador) {
+		this.utilizador = utilizador;
+	}
 }

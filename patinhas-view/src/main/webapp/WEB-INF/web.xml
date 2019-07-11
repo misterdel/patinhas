@@ -10,27 +10,26 @@
 		<param-value>delta</param-value>
 	</context-param>
 
-	
-	
+
+
 	<!-- Login filter -->
 	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>pt.javeiros.patinhas.sessao.LoginFilter</filter-class>
 	</filter>
-	<!-- Set the login filter to secure all the pages in the /secured/* path of the application  -->
+	<!-- Set the login filter to secure all the pages in the /secured/* path 
+		of the application -->
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
-		<url-pattern>/paginas/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 	<!-- By default go to secured welcome page -->
 	<welcome-file-list>
-		<welcome-file>paginas/index.xhtml</welcome-file>
+		<welcome-file>/paginas/index.xhtml</welcome-file>
 	</welcome-file-list>
-	
-	
-	
-	
+
+
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -41,27 +40,14 @@
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
 
-<!--  	<filter>
-		<filter-name>PageFilter</filter-name>
-		<filter-class>pt.javeiros.patinhas.sessao.PageFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>PageFilter</filter-name>
-		<url-pattern>/paginas/*</url-pattern> 
-	</filter-mapping>
-
-	
-	<listener>
-		<listener-class>pt.javeiros.patinhas.sessao.SessionListener</listener-class>
-	</listener>
-
 	<session-config>
 		<session-timeout>60</session-timeout>
-	</session-config>  
-	
-    <welcome-file-list>
-        <welcome-file>/login/index.xhtml</welcome-file>
-    </welcome-file-list> -->
+	</session-config>
+
+	<!-- <filter> <filter-name>PageFilter</filter-name> <filter-class>pt.javeiros.patinhas.sessao.PageFilter</filter-class> 
+		</filter> <filter-mapping> <filter-name>PageFilter</filter-name> <url-pattern>/paginas/*</url-pattern> 
+		</filter-mapping> <listener> <listener-class>pt.javeiros.patinhas.sessao.SessionListener</listener-class> 
+		</listener> <welcome-file-list> <welcome-file>/login/index.xhtml</welcome-file> 
+		</welcome-file-list> -->
 
 </web-app>
