@@ -1,70 +1,77 @@
+/**
+ * 
+ */
 package pt.javeiros.patinhas.modelo;
 
-import java.io.Serializable;
+/**
+ * @author cahangoa
+ *
+ */
 import java.util.Collection;
 
 import javax.persistence.*;
 
+import pt.javeiros.patinhas.dao.persistence.AbstractEntity;
+
 @Entity
 @Table(name="tb_categoria")
-public class Categoria implements Serializable {
+//@SequenceGenerator(name = "CAT_SEQ_ID", sequenceName = "CAT_SEQ_ID", allocationSize = 1)
+public class Categoria extends AbstractEntity {
 
-	private static final long serialVersionUID = -5714696121125893248L;
+	private static final long serialVersionUID = 1L;
+
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
-
-	@Column(name = "cat_codigo", nullable = true)
+	@Column(name = "cat_codigo", nullable = true, unique=true)
 	private String codigo;
 
 	@Column(name = "cat_descricao", nullable = true)
 	private String descricao;
-
-	@Column(name = "cat_observacao", nullable = true)
-	private String observacao;
 	
 	@OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Collection<Raca> racas;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	/**
+	 * @return the codigo
+	 */
 	public String getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * @param codigo the codigo to set
+	 */
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
 
+	/**
+	 * @return the descricao
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
 
+	/**
+	 * @param descricao the descricao to set
+	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public String getObservacao() {
-		return observacao;
-	}
 
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
+	/**
+	 * @return the racas
+	 */
 	public Collection<Raca> getRacas() {
 		return racas;
 	}
 
+	/**
+	 * @param racas the racas to set
+	 */
 	public void setRacas(Collection<Raca> racas) {
 		this.racas = racas;
 	}
+	
 
 }

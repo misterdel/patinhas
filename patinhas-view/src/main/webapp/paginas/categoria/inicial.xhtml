@@ -1,12 +1,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 
-	<h:outputStylesheet  library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="style.css" />
 
 </h:head>
 
@@ -14,17 +14,17 @@
 
 	<h:form id="formCategoria">
 
-	<h:panelGroup rendered="#{categoriaController.consulta}">
+		<h:panelGroup rendered="#{categoriaController.consulta}">
 
-		<ui:include src="/paginas/categoria/consulta.xhtml" />
+			<ui:include src="/paginas/categoria/consulta.xhtml" />
 
-	</h:panelGroup>
+		</h:panelGroup>
 
-	<h:panelGroup rendered="#{!categoriaController.consulta}">
+		<h:panelGroup rendered="#{!categoriaController.consulta}">
 
-		<ui:include src="/paginas/categoria/cadastro.xhtml" />
+			<ui:include src="/paginas/categoria/cadastro.xhtml" />
 
-	</h:panelGroup>
+		</h:panelGroup>
 
 	</h:form>
 </h:body>

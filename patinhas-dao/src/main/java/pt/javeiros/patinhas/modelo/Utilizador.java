@@ -1,44 +1,37 @@
 package pt.javeiros.patinhas.modelo;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import pt.javeiros.patinhas.dao.persistence.AbstractEntity;
 
 @Entity
 @Table(name = "tb_utilizador")
-public class Utilizador implements Serializable {
+public class Utilizador extends AbstractEntity {
 
-	private static final long serialVersionUID = -5714696121125893248L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "id", nullable = true)
-	private Integer id;
-
-	@Lob
-	@Column(name = "util_foto", nullable = true)
-	private byte[] foto;
-
-	@Column(name = "util_nif", nullable = true, unique = true)
-	private String nif;
-
-	@Column(name = "util_email", nullable = true)
-	private String email;
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "util_nome", nullable = true)
 	private String nome;
 
 	@Column(name = "util_apelido", nullable = true)
 	private String apelido;
+
+	@Column(name = "util_nif", nullable = true, unique = true)
+	private Long nif;
+
+	@Column(name = "util_password", nullable = true)
+	private String password;
+
+	@Column(name = "util_email", nullable = true)
+	private String email;
+
+	@Column(name = "util_dataNascimento", nullable = true)
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
+
+	@Column(name = "util_sexo", nullable = true)
+	private String sexo;
 
 	@Column(name = "util_localidade", nullable = true)
 	private String localidade;
@@ -55,43 +48,21 @@ public class Utilizador implements Serializable {
 	@Column(name = "util_destrito", nullable = true) // tabela
 	private String destrito;
 
-	@Column(name = "util_dataNascimento", nullable = true)
-	@Temporal(TemporalType.DATE)
-	private Date dataNascimento;
-
-	@Column(name = "util_sexo", nullable = true)
-	private String sexo;
-
-	@Column(name = "util_password", nullable = true)
-	private String password;
-
 	@Column(name = "util_endereco", nullable = true)
 	private String endereco;
 
-	public Integer getId() {
-		return id;
-	}
+	@ManyToOne
+	@JoinColumn(name = "id_perfil")
+	private Perfil perfil;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@Column(name = "util_dataRegisto", nullable = true, length = 19)
+	@Temporal(TemporalType.TIMESTAMP) // private Date ultimoAcesso;
+	private Date util_dataRegisto = new java.sql.Date(System.currentTimeMillis());
 
-	public String getNif() {
-		return nif;
-	}
-
-	public void setNif(String nif) {
-		this.nif = nif;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	@Column(name = "util_ultimoAcesso", length = 19)
+	@Temporal(TemporalType.TIMESTAMP) // private Date ultimoAcesso;
+	private Date util_ultimoAcesso;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -106,6 +77,46 @@ public class Utilizador implements Serializable {
 
 	public void setApelido(String apelido) {
 		this.apelido = apelido;
+	}
+
+	public Long getNif() {
+		return nif;
+	}
+
+	public void setNif(Long nif) {
+		this.nif = nif;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public String getLocalidade() {
@@ -148,30 +159,6 @@ public class Utilizador implements Serializable {
 		this.destrito = destrito;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getEndereco() {
 		return endereco;
 	}
@@ -180,12 +167,35 @@ public class Utilizador implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public byte[] getFoto() {
-		return foto;
+	public Date getUtil_dataRegisto() {
+		return util_dataRegisto;
 	}
 
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
+	public void setUtil_dataRegisto(Date util_dataRegisto) {
+		this.util_dataRegisto = util_dataRegisto;
+	}
+
+	public Date getUtil_ultimoAcesso() {
+		return util_ultimoAcesso;
+	}
+
+	public void setUtil_ultimoAcesso(Date util_ultimoAcesso) {
+		this.util_ultimoAcesso = util_ultimoAcesso;
+	}
+
+	/**
+	 * @return the perfil
+	 */
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	/**
+	 * @param perfil
+	 *            the perfil to set
+	 */
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 

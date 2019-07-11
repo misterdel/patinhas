@@ -2,42 +2,47 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" template="/paginas/templates/template.xhtml">
-		<ui:define name="conteudo">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"	
+	template="/paginas/templates/template.xhtml">
+	<ui:define name="conteudo">
 
-
+<p:growl id="messages" />
 		<div class="col-lg-12">
 			<div class="portlet portlet-default">
 
 				<div class="portlet-heading">
 					<div class="portlet-title">
-						<h4>Cadastro de utilizador</h4>
+						<h4>Registar Utilizador</h4>
 					</div>
 					<div class="portlet-widgets">
-						<a data-toggle="collapse" data-parent="#accordion" 	href="#"><i class="fa fa-chevron-down"></i></a>
+						<a data-toggle="collapse" data-parent="#accordion" href="#"><i
+							class="fa fa-chevron-down"></i></a>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 
 				<div id="horizontalFormExample" class="panel-collapse collapse in">
 					<div class="portlet-body">
-					
-						<h:form id="formUtilizador" enctype="multipart/form-data" style="text-align:center">
-		
-							<h:panelGroup rendered="#{!utilizadorController.consulta}">
-		
-								<ui:include src="/paginas/utilizador/registarUtilizador.xhtml" />
-		
-							</h:panelGroup>
-		
-							<h:panelGroup rendered="#{utilizadorController.consulta}">
-		
-								<ui:include src="/paginas/utilizador/consultar.xhtml" />
-		
-							</h:panelGroup>
+
+						<h:form id="formUtilizador" enctype="multipart/form-data"
+							style="text-align:center">
 							
+							<h:panelGroup rendered="#{!utilBean.consulta}">
+
+								<ui:include src="/paginas/utilizador/registar.xhtml" />
+
+							</h:panelGroup>
+
+							<h:panelGroup rendered="#{utilBean.consulta}">
+							<ui:include src="/paginas/utilizador/consultar.xhtml" />
+
+								<!-- <ui:include src="/paginas/utilizador/perfilUtilizador.xhtml" /> -->
+
+							</h:panelGroup>
+
 						</h:form>
-					
+
 					</div>
 				</div>
 
@@ -45,6 +50,6 @@
 
 		</div>
 
-		</ui:define>
-	
+	</ui:define>
+
 </ui:composition>

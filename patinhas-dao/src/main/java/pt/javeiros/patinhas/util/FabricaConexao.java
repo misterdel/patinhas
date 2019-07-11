@@ -34,7 +34,7 @@ public class FabricaConexao {
 	    }
 
 	    
-	    public static void main(String[] args) {
+	/**    public static void main(String[] args) {
 
 	        Connection con = FabricaConexao.getConnection();
 
@@ -43,7 +43,7 @@ public class FabricaConexao {
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-	    }
+	    }*/
 
 	    
 	    public static void closeConnection() {
