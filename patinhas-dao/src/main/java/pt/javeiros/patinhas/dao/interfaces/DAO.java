@@ -26,5 +26,7 @@ public interface DAO<T> extends Serializable {
 
 	T findByNif(Long id);
 	
+	List<T> findRacaForCategoria(Long id); //analisar bem 
+	
 	Utilizador login(Utilizador u);
 }

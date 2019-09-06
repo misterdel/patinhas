@@ -6,7 +6,7 @@
 <p:toolbar>
 	<f:facet name="right">
 		<p:commandLink icon="ui-icon-new" action="#{aniBean.NovoAnimal()}"
-			value="Novo" class="btn btn-default" update="@form" />
+			value="Novo" class="btn btn-default" ajax="false" />
 	</f:facet>
 </p:toolbar>
 
@@ -23,9 +23,8 @@
 	<p:panel header="#{animal.nome}" style="text-align:left">
 
 		<h:outputText value="#{animal.cor}" /> <br />
-		<h:outputText value="#{animal.idade}" /><br />
-		<h:outputText value="#{animal.porte.toString()}" /><br />
-		<h:outputText value="#{animal.raca}" /><br />
+		<h:outputText value="#{animal.raca.categoria.codigo}" /><br />
+		<h:outputText value="#{animal.raca.descricao}" /><br />
 		<h:outputText value="#{animal.situacaoClinica}" /><br />
 		<h:outputText value="#{animal.dataNascimento}" /><br />
 		<h:outputText value="#{animal.obs}" /><br />
@@ -56,7 +55,7 @@
 	</p:panel>
 </p:dataGrid>
 			
-			<p:confirmDialog style="float: top;  width: 25%"
+			<p:confirmDialog style="float: top;  width: 25%" 
 		message="Deseja realmente excluir este animal: #{aniBean.animal.nome} ?"
 		widgetVar="confirmaExclusao">
 

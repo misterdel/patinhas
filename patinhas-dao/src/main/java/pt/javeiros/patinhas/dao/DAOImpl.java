@@ -10,6 +10,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
 import pt.javeiros.patinhas.dao.interfaces.DAO;
 import pt.javeiros.patinhas.modelo.Utilizador;
 
@@ -86,6 +90,16 @@ public class DAOImpl<T> implements DAO<T> {
 		return classe;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findRacaForCategoria(Long id_categoria) {
+	
+		Criteria crit2 = getSession().createCriteria(this.classe);
+		crit2.createAlias("categoria", "c");
+		crit2.add(Restrictions.eq("c.id", id_categoria));
+		return crit2.list();
+	}
+
 	@Override
 	public Utilizador login(Utilizador u) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -105,6 +119,9 @@ public class DAOImpl<T> implements DAO<T> {
 	}
 
 	/**
-	 * public Session getSession() { return em.getDelegate(); }
+	 * 
+	 * @return
 	 */
+	public Session getSession() { return (Session) em.getDelegate(); }
+	 
 }

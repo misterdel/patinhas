@@ -10,24 +10,22 @@
 		<param-value>delta</param-value>
 	</context-param>
 
-
-
-	<!-- Login filter -->
+	<!-- Login filter 
 	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>pt.javeiros.patinhas.sessao.LoginFilter</filter-class>
-	</filter>
+	</filter>-->
 	<!-- Set the login filter to secure all the pages in the /secured/* path 
-		of the application -->
+		of the application 
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping>-->
 
-	<!-- By default go to secured welcome page -->
+	<!-- By default go to secured welcome page 
 	<welcome-file-list>
 		<welcome-file>/paginas/index.xhtml</welcome-file>
-	</welcome-file-list>
+	</welcome-file-list>-->
 
 
 	<servlet>
@@ -44,10 +42,5 @@
 		<session-timeout>60</session-timeout>
 	</session-config>
 
-	<!-- <filter> <filter-name>PageFilter</filter-name> <filter-class>pt.javeiros.patinhas.sessao.PageFilter</filter-class> 
-		</filter> <filter-mapping> <filter-name>PageFilter</filter-name> <url-pattern>/paginas/*</url-pattern> 
-		</filter-mapping> <listener> <listener-class>pt.javeiros.patinhas.sessao.SessionListener</listener-class> 
-		</listener> <welcome-file-list> <welcome-file>/login/index.xhtml</welcome-file> 
-		</welcome-file-list> -->
 
 </web-app>

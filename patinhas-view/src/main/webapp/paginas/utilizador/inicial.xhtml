@@ -7,7 +7,6 @@
 	template="/paginas/templates/template.xhtml">
 	<ui:define name="conteudo">
 
-<p:growl id="messages" />
 		<div class="col-lg-12">
 			<div class="portlet portlet-default">
 
@@ -27,6 +26,7 @@
 
 						<h:form id="formUtilizador" enctype="multipart/form-data"
 							style="text-align:center">
+							 <p:growl id="messages" showDetail="true" sticky="true" />  
 							
 							<h:panelGroup rendered="#{!utilBean.consulta}">
 

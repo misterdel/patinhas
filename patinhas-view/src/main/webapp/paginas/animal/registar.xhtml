@@ -1,134 +1,120 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" 
-	 xmlns:o="http://primefaces.org/ui"> <!-- Importação da biblioteca no XHTML -->
-	
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://primefaces.org/ui">
+<!-- Importação da biblioteca no XHTML 
+<script type="text/javascript">
 
-
-
-<p:growl id="mensagemCadastro" />
+document.getElementById('tituloUtil').innerHTML ="Registar Animal";
+</script>-->
 
 <p:panel id="ani" header="Formulário para o registo do animal"
 	style="width:100%" rendered="#{aniBean.animal != null}">
+
+	<div class="row">
+
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="aniNome" value="Nome:" />
+				<p:inputText id="aniNome" style="width: 100%" maxlength="150"
+					value="#{aniBean.animal.nome}" required="true"
+					requiredMessage="O nome é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="aniCor" value="Cor:" />
+				<p:inputText id="aniCor" maxlength="150" style="width: 100%"
+					value="#{aniBean.animal.cor}" required="true"
+					requiredMessage="A cor é obrigatório" />
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="form-group" style="text-align: left;">
+				<p:outputLabel for="anidata" value="Data de Nascimento:" />
+				<p:calendar id="anidata" style="width: 100%"
+					value="#{aniBean.animal.dataNascimento}" mask="true" locale="pt"
+					navigator="true" pattern="dd/mm/yyyy" required="true"
+					requiredMessage="A data de nascimento é obrigatório" />
+			</div>
+		</div>
+	</div>
+
+
 	
-<div class="row">
+	
+	   <div class="row">
+		   <div class="col-md-3">
+			 <div class="form-group">
+			    <h:outputLabel for="categoria" value="Categoria: " />
+	            <p:selectOneMenu id="categoria" style="width:100%" value="#{aniBean.idCategoria}"  required="true" requiredMessage="A categoria é obrigatório" filter="true" filterMatchMode="contains">
+	                <p:ajax listener="#{aniBean.onCategoriaChange}" update="raca" />
+	                <f:selectItem itemLabel="Seleciona a categoria" itemValue="#{aniBean.animal.raca.categoria.codigo}" noSelectionOption="false"  />
+	                <f:selectItems value="#{aniBean.categorias}"  var="c" itemLabel="#{c.codigo}" itemValue="#{c.id}"/>
+	            </p:selectOneMenu>
+			 </div>
+	        </div>
+           <div class="col-md-3">
+			 <div class="form-group">
+			  <p:outputLabel for="raca" value="Raça: " />
+	            <p:selectOneMenu id="raca" style="width:100%" value="#{aniBean.animal.raca}"  required="true" requiredMessage="A raça é obrigatório"  filter="true" filterMatchMode="contains" converter="entityConverter">
+	                <f:selectItem itemLabel="Seleciona a raça" itemValue="#{aniBean.animal.raca}"  noSelectionOption="false" />
+	                <f:selectItems value="#{aniBean.racas}" var="r" itemLabel="#{r.descricao}" itemValue="#{r}"/>
+	            </p:selectOneMenu>
+			 </div>
+           </div>
+         </div>
 
-	<div class="col-md-3">
-		<div class="form-group">
-			<p:outputLabel for="aniNome" value="Nome:" />
-			<p:inputText id="aniNome" style="width: 100%" maxlength="150"
-				value="#{aniBean.animal.nome}" required="true"
-				requiredMessage="O nome é obrigatório" />
+	<div class="row">	
+
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="anisituacaoClinica" value="Situação clínica:" />
+				<p:inputText id="anisituacaoClinica" style="width: 100%"
+					maxlength="150" value="#{aniBean.animal.situacaoClinica}"
+					required="true" requiredMessage="A situação clínica é obrigatório" />
+			</div>
 		</div>
-	</div>
 
-	<div class="col-md-3">
-		<div class="form-group">
-			<p:outputLabel for="aniCor" value="Cor:" />
-			<p:inputText id="aniCor" maxlength="150" style="width: 100%"
-				value="#{aniBean.animal.cor}" required="true"
-				requiredMessage="A cor é obrigatório" />
+		<div class="col-md-3">
+			<div class="form-group">
+				<p:outputLabel for="aniObs" value="Observação:" />
+				<p:inputText id="aniObs" maxlength="150" style="width: 100%"
+					value="#{aniBean.animal.obs}" />
+			</div>
 		</div>
-	</div>
 
-	<div class="col-md-3">
-		<div class="form-group" style="text-align: left;">
-			<p:outputLabel for="anidata" value="Data de Nascimento:" />
-			<p:calendar id="anidata" style="width: 100%"
-				value="#{aniBean.animal.dataNascimento}" mask="true" locale="pt"
-				navigator="true" pattern="dd/mm/yyyy" required="true"
-				requiredMessage="A data de nascimento é obrigatório" />
-		</div>
-	</div>
-</div>
-
-<div class="row">
-
-	<div class="col-md-3">
-		<div class="form-group">
-	<o:importConstants type="pt.javeiros.patinhas.modelo.enums.Idade" />
-			<p:outputLabel for="aniIdade" value="Idade:" />
-			<h:selectOneMenu id="aniIdade" style="width: 100%" maxlength="150"
-				value="#{aniBean.animal.idade}" required="true"
-				requiredMessage="A idade é obrigatório">
-				<f:selectItems value="#{Idade}" />
-			</h:selectOneMenu> 
-		</div>
-	</div>
-
-	<div class="col-md-3">
-		<div class="form-group">
-			<o:importConstants type="pt.javeiros.patinhas.modelo.enums.Porte"/>
-			<p:outputLabel for="aniPorte" value="Tamanho:" />
-			<h:selectOneMenu id="aniPorte" style="width: 100%" maxlength="150"
-				value="#{aniBean.animal.porte}" required="true"
-				requiredMessage="O tamanho é obrigatório">
-				
-				<f:selectItems value="#{Porte}" />
-			</h:selectOneMenu>
-		</div>
 	</div>
 
 
-	<div class="col-md-3">
-		<div class="form-group">
-			<p:outputLabel for="aniRaca" value="Raca:" />
-			<p:inputText id="aniRaca" maxlength="150" style="width: 100%"
-				value="#{aniBean.animal.raca}" required="true"
-				requiredMessage="A Raça é obrigatório" />
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<p:outputLabel for="aniComentario" value="Comentário:" />
+				<p:inputTextarea id="aniComentario" style="width:100%" rows="5"
+					cols="80" counter="display" maxlength="150"
+					value="#{aniBean.animal.comentario}" required="true"
+					counterTemplate="{0} caracters restantes." autoResize="false"
+					requiredMessage="O Comentário é obrigatorio" />
+				<h:outputText id="display" />
+			</div>
 		</div>
 	</div>
-</div>
+	<p:separator />
 
-<div class="row">
-
-	<div class="col-md-3">
-		<div class="form-group">
-			<p:outputLabel for="anisituacaoClinica" value="Situação clínica:" />
-			<p:inputText id="anisituacaoClinica" style="width: 100%"
-				maxlength="150" value="#{aniBean.animal.situacaoClinica}"
-				required="true" requiredMessage="A situação clínica é obrigatório" />
+	<div class="row">
+		<div class="col-md-9"></div>
+		<div class="col-md-3">
+			<div class="button-group" style="float: right;">
+				<p:commandLink icon="ui-icon-fa-save" class="btn btn-default"
+					action="#{aniBean.save()}" value="Salvar" ajax="false" />
+				<p:commandLink icon="ui-icon-previous" action="#{aniBean.voltar()}"
+					immediate="true" style="margin-left: 7px;" class="btn btn-default"
+					value="Voltar" update="@form" />
+			</div>
 		</div>
 	</div>
-
-	<div class="col-md-3">
-		<div class="form-group">
-			<p:outputLabel for="aniObs" value="Observação:" />
-			<p:inputText id="aniObs" maxlength="150" style="width: 100%"
-				value="#{aniBean.animal.obs}" />
-		</div>
-	</div>
-
-</div>
-
-
-<div class="row">
-	<div class="col-md-6">
-		<div class="form-group">
-			<p:outputLabel for="aniComentario" value="Comentário:" />
-			<p:inputTextarea id="aniComentario" style="width:100%" rows="5"
-				cols="80" counter="display" maxlength="150"
-				value="#{aniBean.animal.comentario}" required="true"
-				counterTemplate="{0} caracters restantes." autoResize="false"
-				requiredMessage="O Comentário é obrigatorio" />
-			<h:outputText id="display" />
-		</div>
-	</div>
-</div>
-<p:separator />
-
-<div class="row">
-	<div class="col-md-9"></div>
-	<div class="col-md-3">
-		<div class="button-group" style="float: right;">
-			<p:commandLink icon="ui-icon-fa-save" class="btn btn-default"
-				action="#{aniBean.save()}" value="Salvar" ajax="false" />
-			<p:commandLink icon="ui-icon-previous" action="#{aniBean.voltar()}"
-				immediate="true" style="margin-left: 7px;" class="btn btn-default"
-				value="Voltar" update="@form" />
-		</div>
-	</div>
-</div>
 </p:panel>
 </html>

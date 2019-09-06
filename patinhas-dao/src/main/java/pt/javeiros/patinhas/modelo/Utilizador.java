@@ -14,6 +14,9 @@ public class Utilizador extends AbstractEntity {
 	@Column(name = "util_nome", nullable = true)
 	private String nome;
 
+	@Column(name = "util_foto", nullable = false)
+	private String srcFoto;
+
 	@Column(name = "util_apelido", nullable = true)
 	private String apelido;
 
@@ -62,7 +65,7 @@ public class Utilizador extends AbstractEntity {
 	@Column(name = "util_ultimoAcesso", length = 19)
 	@Temporal(TemporalType.TIMESTAMP) // private Date ultimoAcesso;
 	private Date util_ultimoAcesso;
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -198,5 +201,11 @@ public class Utilizador extends AbstractEntity {
 		this.perfil = perfil;
 	}
 
+	public String getSrcFoto() {
+		return srcFoto;
+	}
 
+	public void setSrcFoto(String srcFoto) {
+		this.srcFoto = srcFoto;
+	}
 }

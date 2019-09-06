@@ -4,7 +4,7 @@
 package pt.javeiros.patinhas.view.controller;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +13,8 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import pt.javeiros.patinhas.modelo.Animal;
-import pt.javeiros.patinhas.modelo.Utilizador;
+import pt.javeiros.patinhas.modelo.Categoria;
+import pt.javeiros.patinhas.modelo.Raca;
 import pt.javeiros.patinhas.service.AnimalService;
 import pt.javeiros.patinhas.util.UtilObjeto;
 import pt.javeiros.patinhas.view.util.UtilMensagem;
@@ -29,19 +30,25 @@ public class AnimalController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private @Inject AnimalService animalService;
+	private @Inject RacaController racaController;
+	private @Inject CategoriaController categoriaController;
+
 	private Animal animal;
 
-	// private Animal utilSelect;
-
 	private List<Animal> animais;
+	private List<Categoria> categorias;
+	private List<Raca> racas;
+
 	private List<Animal> filteredAnimais;
+	private Long idCategoria;
+
 	private boolean consulta;
 
 	@PostConstruct
 	public void init() {
 		consulta = true;
-		animais = new LinkedList<Animal>();
 		animais = getAllAnimais();
+		this.categorias = categoriaController.getCategorias();
 	}
 
 	/**
@@ -77,6 +84,15 @@ public class AnimalController implements Serializable {
 			UtilMensagem.adicionarMensagemErro("O animal não foi removido!");
 		}
 		init();
+	}
+
+	public void onCategoriaChange() {
+
+		if (idCategoria != null && idCategoria != 0) {
+			racas = getRacaController().getRacaForCategoria((int) (long) idCategoria);
+		} else {
+			racas = new ArrayList<>();
+		}
 	}
 
 	/**
@@ -151,7 +167,7 @@ public class AnimalController implements Serializable {
 	 * @return the animais
 	 */
 	public List<Animal> getAnimais() {
-		return animais;
+		return UtilObjeto.isNull(this.animais) ? this.animais = new ArrayList<Animal>() : this.animais;
 	}
 
 	/**
@@ -183,6 +199,82 @@ public class AnimalController implements Serializable {
 
 	public void setConsulta(boolean consulta) {
 		this.consulta = consulta;
+	}
+
+	/**
+	 * @return the racaController
+	 */
+	public RacaController getRacaController() {
+		return racaController;
+	}
+
+	/**
+	 * @param racaController
+	 *            the racaController to set
+	 */
+	public void setRacaController(RacaController racaController) {
+		this.racaController = racaController;
+	}
+
+	/**
+	 * @return the categorias
+	 */
+	public List<Categoria> getCategorias() {
+		return UtilObjeto.isNull(this.categorias) ? this.categorias = new ArrayList<Categoria>() : this.categorias;
+
+	}
+
+	/**
+	 * @param categorias
+	 *            the categorias to set
+	 */
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	/**
+	 * @return the racas
+	 */
+	public List<Raca> getRacas() {
+		return racas;
+	}
+
+	/**
+	 * @param racas
+	 *            the racas to set
+	 */
+	public void setRacas(List<Raca> racas) {
+		this.racas = racas;
+	}
+
+	/**
+	 * @return the idCategoria
+	 */
+	public Long getIdCategoria() {
+		return idCategoria;
+	}
+
+	/**
+	 * @param idCategoria
+	 *            the idCategoria to set
+	 */
+	public void setIdCategoria(Long idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	/**
+	 * @return the categoriaController
+	 */
+	public CategoriaController getCategoriaController() {
+		return categoriaController;
+	}
+
+	/**
+	 * @param categoriaController
+	 *            the categoriaController to set
+	 */
+	public void setCategoriaController(CategoriaController categoriaController) {
+		this.categoriaController = categoriaController;
 	}
 
 }

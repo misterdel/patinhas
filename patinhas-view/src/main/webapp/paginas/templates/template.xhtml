@@ -168,19 +168,6 @@
                         </ul>
                         <!-- /.dropdown-menu -->
                     </li>
-					   <li class="dropdown">
-                        <a href="#" class="messages-link dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope"></i>
-                            <span class="number">4</span> <i class="fa fa-caret-down"></i>
-                        </a>
-						<ul class="dropdown-menu dropdown-scroll dropdown-messages">
- 						<!-- Messages Dropdown Heading -->
-                            <li class="dropdown-header">
-                                <i class="fa fa-envelope"></i> 4 New Messages
-                            </li>
-							
-						</ul></li>
-
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <i class="fa fa-user"></i> <i
 							class="fa fa-caret-down"></i>
@@ -211,6 +198,8 @@
                             <li><a class="logout_open" href="#logout"
 								data-popup-ordinal="0" id="open_37703538"> <i
 									class="fa fa-sign-out"></i> Logout <strong>#{loginBean.utilizador.nome} #{loginBean.utilizador.apelido}</strong>
+							
+							<h:commandButton class="fa fa-sign-out" action="#{loginBean.doLogout()}" value="logout" />
 							</a></li>
 						</ul></li>
 						

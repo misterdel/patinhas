@@ -2,9 +2,22 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+<script type="text/javascript" >
 
+document.getElementById('tituloUtil').innerHTML ="Registar Utilizador";
+</script>
 <p:panel id="util" header="Formulário para o registo de utilizador"
 	style="width:100%" rendered="#{utilBean.utilizador != null}">
+	
+	<div class="row">
+		  <div class="col-md-3">
+			 <div class="form-group" style="text-align: left;">
+			    <p:outputLabel  for="utilsrcFoto" value="Foto de capa:"  />
+				<p:fileUpload id="utilsrcFoto"  class="form-control"  value="#{utilBean.sfcFotoFile}"  mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
+			 </div>
+	        </div>
+	 </div>
+	
 	<div class="row">
 		<div class="col-md-3">
 			<div class="form-group">
@@ -166,7 +179,7 @@
 			<div class="button-group" style="float: right;">
 				<p:commandLink icon="ui-icon-previous" action="#{utilBean.voltar()}"
 					immediate="true" style="margin-left: 3px;" class="btn btn-default"
-					value="Voltar" update="@form" />
+					value="Voltar" ajax="false" />
 			</div>
 		</div>
 	</div>

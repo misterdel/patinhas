@@ -14,6 +14,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
 import pt.javeiros.patinhas.modelo.Perfil;
 import pt.javeiros.patinhas.modelo.Utilizador;
 import pt.javeiros.patinhas.service.UtilizadorService;
@@ -40,8 +43,9 @@ public class UtilizadorController implements Serializable {
 
 	private List<Utilizador> utilizadores;
 	private List<Perfil> perfis;
-
 	private List<Utilizador> filteredUtilizadores;
+	
+	private UploadedFile sfcFotoFile;
 
 	private boolean consulta;
 
@@ -89,6 +93,7 @@ public class UtilizadorController implements Serializable {
 
 					if (UtilObjeto.isNotNull(passIncriptada)) {
 						this.utilizador.setPassword(passIncriptada);
+						this.utilizador.setSrcFoto(this.utilizador.getNif()+"/"+sfcFotoFile.getFileName());
 						utilizadorService.save(utilizador);
 						UtilMensagem.adicionarMensagemSucesso("Utilizador salvo com sucesso !");
 
@@ -150,6 +155,13 @@ public class UtilizadorController implements Serializable {
 		init();
 	}
 
+	
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		this.sfcFotoFile = event.getFile();		
+	}
+	
+	
 	/**
 	 * m�todo que permite voltar a p�gina
 	 */
@@ -282,6 +294,48 @@ public class UtilizadorController implements Serializable {
 	}
 
 	
+	/**
+	 * @return the sfcFotoFile
+	 */
+	public UploadedFile getSfcFotoFile() {
+		return sfcFotoFile;
+	}
+
+	/**
+	 * @param sfcFotoFile the sfcFotoFile to set
+	 */
+	public void setSfcFotoFile(UploadedFile sfcFotoFile) {
+		this.sfcFotoFile = sfcFotoFile;
+	}
+
+	/**
+	 * @return the utilizadorService
+	 */
+	public UtilizadorService getUtilizadorService() {
+		return utilizadorService;
+	}
+
+	/**
+	 * @param utilizadorService the utilizadorService to set
+	 */
+	public void setUtilizadorService(UtilizadorService utilizadorService) {
+		this.utilizadorService = utilizadorService;
+	}
+
+	/**
+	 * @return the perfilController
+	 */
+	public PerfilController getPerfilController() {
+		return perfilController;
+	}
+
+	/**
+	 * @param perfilController the perfilController to set
+	 */
+	public void setPerfilController(PerfilController perfilController) {
+		this.perfilController = perfilController;
+	}
+
 	/**
 	 * 
 	 * @param nif

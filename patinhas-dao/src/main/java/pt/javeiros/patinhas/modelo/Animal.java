@@ -8,12 +8,11 @@ import java.util.Date;
 import javax.persistence.*;
 
 import pt.javeiros.patinhas.dao.persistence.AbstractEntity;
-import pt.javeiros.patinhas.modelo.enums.*;
 
 /**
  * @author cahangoa
- *
  */
+
 @Entity
 @Table(name = "tb_animal")
 public class Animal extends AbstractEntity {
