@@ -51,8 +51,8 @@ document.getElementById('tituloUtil').innerHTML ="Registar Utilizador";
 			<div class="form-group" style="text-align: left;">
 				<p:outputLabel for="util_dataNascimento" value="Data de Nascimento:" />
 				<p:calendar id="util_dataNascimento" style="width: 100%"
-					value="#{utilBean.utilizador.dataNascimento}" mask="true"
-					locale="pt" navigator="true" pattern="dd/mm/yyyy" required="true"
+					value="#{utilBean.utilizador.dataNascimento}"
+					locale="pt"  required="true" showOn="button"
 					requiredMessage="A data de nascimento é obrigatório" />
 			</div>
 		</div>

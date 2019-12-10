@@ -6,7 +6,8 @@
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<jta-data-source>java:jboss/datasources/patinhasDS</jta-data-source>
+		<!-- 	<jta-data-source>java:jboss/datasources/patinhasDS</jta-data-source> -->
+		<jta-data-source>java:/patinhasDS</jta-data-source>
 
 		<class>pt.javeiros.patinhas.modelo.Utilizador</class>
 		 <class>pt.javeiros.patinhas.modelo.Raca</class>
@@ -17,8 +18,7 @@
 
 		<properties>
 
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5433/DB_Patinhas" />
+			<property name="javax.persistence.jdbc.url"	value="jdbc:postgresql://localhost:5432/DB_Patinhas" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="A4junior" />
 

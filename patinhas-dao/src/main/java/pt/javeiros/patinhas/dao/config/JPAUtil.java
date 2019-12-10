@@ -21,9 +21,9 @@ public class JPAUtil {
 		return emf.createEntityManager();
 	}
 
-	public void fecharEntityManager(@Disposes EntityManager em) {
+	/**public void fecharEntityManager(@Disposes EntityManager em) {
 		if (em != null && em.isOpen()) {
 			em.close();
 		}
-	}
+	}*/
 }
